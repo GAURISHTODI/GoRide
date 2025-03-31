@@ -4,21 +4,21 @@ import { Link, data, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { auth,db } from '../firebase';
 import { doc, getDoc } from "firebase/firestore";
-async function handleLogin(navigate, setModalMessage, setModalVisible) {
+async function handleLogin(navigate, setModalMessage, setModalVisible,email,password) {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const id = userCredential.user.uid; // Get user ID after login
+        const id = userCredential.user.uid;
         const docRef = doc(db, "users", id);
-        const docSnap = await getDoc(docRef); // Await getDoc
-
+        const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-            const userData = docSnap.data(); // Retrieve document data
+            const userData = docSnap.data();
             localStorage.setItem("id", id);
             localStorage.setItem("role", userData.role);
             localStorage.setItem("username", userData.name);
-
+            localStorage.setItem("email", userData.email);
+            localStorage.setItem("phone", userData.mobileNumber);
+            alert(`${userData.role},${userData.name},`)
             console.log(localStorage.getItem("id"));
-
             if (userData.role === "user") {
                 navigate("/search");
             } else if (userData.role === "driver") {
@@ -27,7 +27,6 @@ async function handleLogin(navigate, setModalMessage, setModalVisible) {
                 setModalMessage("Role not recognized.");
                 setModalVisible(true);
             }
-
             setModalMessage(`Login successful!\nWelcome ${userData.name}`);
             setModalVisible(true);
         } else {
@@ -47,10 +46,8 @@ const Login = () => {
     const [passwordError, setPasswordError] = useState('');
     const [modalMessage, setModalMessage] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
-
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         // Email validation
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!emailRegex.test(email)) {
@@ -59,7 +56,6 @@ const Login = () => {
         } else {
             setEmailError('');
         }
-
         // Password validation
         if (password.length < 8) {
             setPasswordError('Password must be at least 8 characters long');
@@ -67,37 +63,31 @@ const Login = () => {
         } else {
             setPasswordError('');
         }
-
         try {
-            handleLogin(navigate,setModalMessage ,setModalVisible);
+            handleLogin(navigate,setModalMessage ,setModalVisible,email,password);
         } catch (error) {
             console.error('Error during login:', error);
             setModalMessage('An error occurred. Please try again later.');
             setModalVisible(true);
         }
     };
-
     // Redirect to signup page
     const handleCreate = () => {
         navigate('/signup');
     };
-
-
     // Close modal function
     const closeModal = () => {
         setModalVisible(false);
         // Optionally, you can navigate to a different page when the modal is closed
         // navigate('/'); // Uncomment if you want to redirect to home on modal close
     };
-
-
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
                 <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
                     <div className="sm:mx-auto sm:w-full sm:max-w-md">
                         <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">
-                            Login
+                            Welcome Back!
                         </h2>
                     </div>
                     <form className="space-y-6" onSubmit={handleSubmit}>
@@ -140,23 +130,20 @@ const Login = () => {
                         </div>
 
                         <div className="flex items-center justify-between">
-                            <div className="flex items-center">
+                            {/* <div className="flex items-center">
                                 <input
                                     id="remember_me"
                                     name="remember_me"
                                     type="checkbox"
                                     className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                                 />
-                                <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-900">
-                                    Remember me
-                                </label>
-                            </div>
+                            </div> */}
 
-                            <div className="text-sm">
+                            {/* <div className="text-sm">
                                 <Link to="/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">
                                     Forgot your password?
                                 </Link>
-                            </div>
+                            </div> */}
                         </div>
 
                         <div>
@@ -175,7 +162,7 @@ const Login = () => {
                             </div>
                             <div className="relative flex justify-center text-sm">
                                 <span className="px-2 bg-gray-100 text-gray-500">
-                                    Or continue with
+                                    New to us ? 
                                 </span>
                             </div>
                         </div>

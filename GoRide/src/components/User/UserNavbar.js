@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // Import Bootstrap JS for toggler functionality
-
+import { auth,db } from '../firebase'
 const UserNavbar = () => {
     const [isRideSuccessful, setIsRideSuccessful] = useState(false); // Track ride status
     const navigate = useNavigate();
@@ -16,7 +16,12 @@ const UserNavbar = () => {
     };
 
     const handleLogout = () => {
-        localStorage.removeItem('id');
+        localStorage.removeItem("id");
+        localStorage.removeItem("role");
+        localStorage.removeItem("username");
+        localStorage.removeItem("email");
+        localStorage.removeItem("phone");
+        auth.signOut();
         navigate('/login');
     };
 

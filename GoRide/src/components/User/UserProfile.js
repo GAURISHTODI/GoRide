@@ -5,39 +5,13 @@ import UserNavbar from './UserNavbar';
 const UserProfile = () => {
     const navigate = useNavigate();
     const [userDetails, setUser] = useState({
-        Username: '',
-        email: '',
-        mobileNumber: ''
+        Username: localStorage.getItem("username"),
+        email: localStorage.getItem("email") ,
+        mobileNumber: localStorage.getItem("phone")
     });
     const [isEditing, setIsEditing] = useState(false);
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
-
-    useEffect(() => {
-        const uid = localStorage.getItem("id");
-        const storedUsername = localStorage.getItem("username");
-        setUser(prevDetails => ({
-            ...prevDetails,
-            Username: storedUsername || ''
-        }));
-
-        const fetchUserData = async () => {
-            const response = await fetch(`http://GoRide.ap-south-1.elasticbeanstalk.com/api/user/${uid}`);
-            if (response.ok) {
-                const data = await response.json();
-                setUser(prevDetails => ({
-                    ...prevDetails,
-                    email: data.email,
-                    mobileNumber: data.mobileNumber,
-                }));
-            } else {
-                alert('Failed to fetch user data');
-            }
-        };
-
-        fetchUserData();
-    }, []);
-
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setUser((prevDetails) => ({
@@ -45,39 +19,12 @@ const UserProfile = () => {
             [name]: value,
         }));
     };
-
     const handleEditToggle = () => {
         setIsEditing((prev) => !prev);
     };
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         const uid = localStorage.getItem("id");
-
-        try {
-            const response = await fetch(`http://GoRide.ap-south-1.elasticbeanstalk.com/api/user/${uid}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    Id: uid,
-                    Username: userDetails.Username,
-                    Email: userDetails.email,
-                    MobileNumber: userDetails.mobileNumber,
-                }),
-            });
-
-            if (response.ok) {
-                alert('User details updated successfully');
-                setIsEditing(false); // Exit editing mode
-            } else {
-                alert('Failed to update user details');
-            }
-        } catch (error) {
-            console.error('Error updating user data:', error);
-            alert('Failed to update user details');
-        }
     };
 
     return (
@@ -143,26 +90,6 @@ const UserProfile = () => {
                                     disabled={!isEditing}
                                 />
                             </div>
-                        </div>
-
-                        {/* Edit and Save buttons */}
-                        <div className="flex justify-between items-center mt-6">
-                            <button
-                                type="button"
-                                onClick={handleEditToggle}
-                                className="w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            >
-                                {isEditing ? 'Cancel' : 'Edit'}
-                            </button>
-
-                            {isEditing && (
-                                <button
-                                    type="submit"
-                                    className="w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-                                >
-                                    Update
-                                </button>
-                            )}
                         </div>
                     </form>
                 </div>

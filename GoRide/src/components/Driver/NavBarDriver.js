@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // Import Bootstrap JS for toggler functionality
+import { auth,db } from '../firebase'
 
 const NavbarDriver = () => {
     const navigate = useNavigate();
@@ -17,7 +18,12 @@ const NavbarDriver = () => {
         navigate('/driverprofile');
     };
     const handleLogout = () => {
-        localStorage.removeItem('id');
+        localStorage.removeItem("id");
+        localStorage.removeItem("role");
+        localStorage.removeItem("username");
+        localStorage.removeItem("email");
+        localStorage.removeItem("phone");
+        auth.signOut();
         navigate('/login');
     };
 

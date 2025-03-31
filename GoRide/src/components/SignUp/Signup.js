@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import { FaUser, FaEnvelope, FaLock, FaCar, FaIdCard, FaCheckCircle } from 'react-icons/fa'; // Importing icons
 import { auth, provider ,db} from '../firebase'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { collection, addDoc } from "firebase/firestore"; 
-
+import { collection, addDoc,doc ,setDoc} from "firebase/firestore"; 
 const Signup = () => {
     const navigate = useNavigate();
     const [name, setName] = useState('');
@@ -71,13 +69,14 @@ const Signup = () => {
                     .then((userCredential) => {
                         const user = userCredential.user;
                         try{
-                            const docRef= addDoc(collection(db, "users"), {
+                            const userRef = doc(db, "users", auth.currentUser.uid);
+                            setDoc(userRef, {
                                 uid: auth.currentUser.uid,
                                 name: name,
                                 email: email,
                                 mobileNumber: mobileNumber,
                                 role: role.toLowerCase()
-                              });
+                            });
                               setModalMessage(userCredential.message);
                               setModalVisible(true);
                         }
@@ -121,7 +120,7 @@ const Signup = () => {
 
             <div className="flex items-center justify-center min-h-screen bg-gray-100"> {/* Plain background */}
                 <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md">
-                    <h2 className="text-2xl font-bold text-blue-600 mb-4 text-center">Sign Up</h2>
+                    <h2 className="text-2xl font-bold text-blue-600 mb-4 text-center">Let's Get You in!</h2>
                     <form onSubmit={handleSubmit} className="text-black">
                         <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">Name</label>
@@ -277,7 +276,7 @@ const Signup = () => {
                                 Sign Up
                             </button>
                             <p className="text-center mt-4">
-                                Already have an account? <Link to="/login" className="text-blue-500">Login</Link>
+                                Already know us? <Link to="/login" className="text-blue-500">Login</Link>
                             </p>
                         </div>
                     </form>
