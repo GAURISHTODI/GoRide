@@ -9,7 +9,6 @@ import { collection, addDoc,doc ,setDoc} from "firebase/firestore";
 const Signup = () => {
     const navigate = useNavigate();
     const [name, setName] = useState('');
-    const [role, setRole] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -62,7 +61,7 @@ const Signup = () => {
         }
 
         if (emailRegex.test(email) && passwordRegex.test(password) && password === confirmPassword && isValidMobileNumber) {
-            const user1 = { name, role, email, password, carNumber, licenseNumber, cardLastFour, mobileNumber };
+            const user1 = { name,  email, password, carNumber, licenseNumber, cardLastFour, mobileNumber };
 
             try {
                 await createUserWithEmailAndPassword(auth, email, password)  //CREATE OPERATION
@@ -74,8 +73,7 @@ const Signup = () => {
                                 uid: auth.currentUser.uid,
                                 name: name,
                                 email: email,
-                                mobileNumber: mobileNumber,
-                                role: role.toLowerCase()
+                                mobileNumber: mobileNumber
                             });
                               setModalMessage(userCredential.message);
                               setModalVisible(true);
@@ -137,7 +135,7 @@ const Signup = () => {
                                 />
                             </div>
                         </div>
-                        <div className="mb-4">
+                        {/* <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="role">Role</label>
                             <select
                                 id="role"
@@ -157,8 +155,8 @@ const Signup = () => {
                                 <option value="user">User  </option>
                                 <option value="driver">Driver</option>
                             </select>
-                        </div>
-                        {role === 'driver' && (
+                        </div> */}
+                        {/* { true && (
                             <>
                                 <div className="mb-4">
                                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="carNumber">Car Number</label>
@@ -206,7 +204,7 @@ const Signup = () => {
                                     </div>
                                 </div>
                             </>
-                        )}
+                        )} */}
                         <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="mobileNumber">Mobile Number</label>
                             <PhoneInput

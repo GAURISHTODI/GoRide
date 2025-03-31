@@ -13,22 +13,13 @@ async function handleLogin(navigate, setModalMessage, setModalVisible,email,pass
         if (docSnap.exists()) {
             const userData = docSnap.data();
             localStorage.setItem("id", id);
-            localStorage.setItem("role", userData.role);
             localStorage.setItem("username", userData.name);
             localStorage.setItem("email", userData.email);
             localStorage.setItem("phone", userData.mobileNumber);
-            alert(`${userData.role},${userData.name},`)
             console.log(localStorage.getItem("id"));
-            if (userData.role === "user") {
-                navigate("/search");
-            } else if (userData.role === "driver") {
-                navigate("/publish-ride");
-            } else {
-                setModalMessage("Role not recognized.");
-                setModalVisible(true);
-            }
             setModalMessage(`Login successful!\nWelcome ${userData.name}`);
             setModalVisible(true);
+            navigate("/search");
         } else {
             setModalMessage("User data not found.");
             setModalVisible(true);
@@ -48,7 +39,6 @@ const Login = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const handleSubmit = async (event) => {
         event.preventDefault();
-        // Email validation
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!emailRegex.test(email)) {
             setEmailError('Invalid email address');
@@ -56,7 +46,6 @@ const Login = () => {
         } else {
             setEmailError('');
         }
-        // Password validation
         if (password.length < 8) {
             setPasswordError('Password must be at least 8 characters long');
             return;
@@ -71,15 +60,11 @@ const Login = () => {
             setModalVisible(true);
         }
     };
-    // Redirect to signup page
     const handleCreate = () => {
         navigate('/signup');
     };
-    // Close modal function
     const closeModal = () => {
         setModalVisible(false);
-        // Optionally, you can navigate to a different page when the modal is closed
-        // navigate('/'); // Uncomment if you want to redirect to home on modal close
     };
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
