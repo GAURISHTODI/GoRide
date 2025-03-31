@@ -3,6 +3,7 @@ import axios from 'axios';
 import PaymentComponent from '../Payments/PaymentComponent';
 import RidesNavBar from '../HomePage/RidesNavBar';
 
+
 const PopularRides = () => {
     const [selectedRide, setSelectedRide] = useState(null);
     const [rides, setRides] = useState([]);

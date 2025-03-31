@@ -24,7 +24,7 @@ const NavbarDriver = () => {
         localStorage.removeItem("email");
         localStorage.removeItem("phone");
         auth.signOut();
-        navigate('/login');
+        navigate('/home');
     };
 
     return (

@@ -22,7 +22,7 @@ const UserNavbar = () => {
         localStorage.removeItem("email");
         localStorage.removeItem("phone");
         auth.signOut();
-        navigate('/login');
+        navigate('/');
     };
 
     // Custom style for brand text
