@@ -1,0 +1,27 @@
+/* src/Signup.css */
+.signup-container {
+    text-align: center;
+    padding: 50px;
+    background-color: #007BFF; /* Blue background */
+    color: white; /* White text */
+}
+
+.signup-input {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid white; /* White border */
+    color: black;
+}
+
+.signup-button {
+    background-color: white; /* White button */
+    color: #007BFF; /* Blue text */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+.login-link {
+    color: white; /* White link */
+}

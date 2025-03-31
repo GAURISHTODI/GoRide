@@ -1,0 +1,16 @@
+/* src/Payments/PaymentComponent.css */
+.pay-now-button {
+    background-color: #2563eb; /* Blue 600 */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.pay-now-button:hover {
+    background-color: #1d4ed8; /* Darker blue on hover */
+}

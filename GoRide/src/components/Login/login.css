@@ -1,0 +1,26 @@
+/* src/Login.css */
+.login-container {
+    text-align: center;
+    padding: 50px;
+    background-color: #007BFF; /* Blue background */
+    color: white; /* White text */
+}
+
+.login-input {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid white; /* White border */
+}
+
+.login-button {
+    background-color: white; /* White button */
+    color: #007BFF; /* Blue text */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+.signup-link {
+    color: white; /* White link */
+}
