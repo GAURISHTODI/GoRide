@@ -47,6 +47,8 @@ import { HubConnectionBuilder } from '@microsoft/signalr';
 import ParentComponent from './components/ParentComponent';
 import UpdatePassword from './components/Login/UpdatePassword';
 
+import "./App.css"
+
 const App = () => {
     const [from, setFrom] = useState('');
     const [to, setTo] = useState('');

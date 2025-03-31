@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import "./Footer.css"
 
 const Footer = () => {
     const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
@@ -16,7 +17,7 @@ const Footer = () => {
     }, []);
 
     return (
-        <footer className="bg-white py-4">
+        <footer className="bgd2 py-4">
             <div className="text-center">
                 {/* <a href="#" className="flex items-center justify-center mb-5 text-2xl font-semibold text-blue-600">
                     <img src="https://www.svgrepo.com/show/499962/music.svg" className="h-12 mr-3 sm:h-9" alt="Landwind Logo" />

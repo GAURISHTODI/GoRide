@@ -1,0 +1,9 @@
+.pb{
+    border: 1px solid #9d7aff;
+    color: #9d7aff;
+}
+
+.pb::hover{
+    border: 1px solid #9d7aff;
+    color: #9d7aff;
+}

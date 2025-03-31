@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios'; // Import axios
 import UserNavbar from './NavBar';
+import "./ContactUs.css"
 
 const ContactUs = () => {
     const [name, setName] = useState('');
@@ -11,7 +12,7 @@ const ContactUs = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         // Simple validation
         if (!name || !email || !message) {
             setError('All fields are required.');
@@ -19,7 +20,7 @@ const ContactUs = () => {
         }
 
         setError('');
-        
+
         // Prepare the data for submission
         const contactData = {
             name,
@@ -30,11 +31,11 @@ const ContactUs = () => {
         try {
             // Make the API call
             const response = await axios.post('https://localhost:44345/api/Contact/submit', contactData);
-            
+
             if (response.status === 200) {
                 // Success message
                 setSuccess(true);
-                
+
                 // Reset form fields
                 setName('');
                 setEmail('');
@@ -49,9 +50,9 @@ const ContactUs = () => {
     return (
         <>
             <UserNavbar />
-            <section className="bg-blue-50 dark:bg-slate-800" id="contact">
-                <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-                    <div className="mb-4">
+            <section className="bgd text-light dark:bg-slate-800" id="contact">
+                <div className="bgd2 text-light mx-auto max-w-7xl m-5 px-4 py-16 sm:px-6 lg:px-8 lg:py-20 ">
+                    {/* <div className="mb-4">
                         <div className="mb-6 max-w-3xl text-center sm:text-center md:mx-auto md:mb-12">
                             <p className="text-base font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-200">
                                 Contact
@@ -60,6 +61,19 @@ const ContactUs = () => {
                                 Get in Touch
                             </h2>
                             <p className="mx-auto mt-4 max-w-3xl text-xl text-blue-600 dark:text-slate-400">
+                                GoRide is here to help you with your journey.
+                            </p>
+                        </div>
+                    </div> */}
+                    <div className="mb-12">
+                        <div className="max-w-3xl mx-auto text-center">
+                            <p className="text-lg font-semibold uppercase tracking-wide text-[#6ac7ff]">
+                                Contact
+                            </p>
+                            <h2 className="mt-4 text-4xl font-bold text-white sm:text-5xl">
+                                Get in Touch
+                            </h2>
+                            <p className="mt-4 text-xl text-[#b0b0b0]">
                                 GoRide is here to help you with your journey.
                             </p>
                         </div>
@@ -82,7 +96,7 @@ const ContactUs = () => {
                                         <div className="ml-4 mb-4">
                                             <h3 className="mb-2 text-lg font-medium leading-6 text-blue-600 dark:text-white">Our Address</h3>
                                             <p className="text-gray-600 dark:text-slate-400">Pune,Maharashtra ,India</p>
-                                            
+
                                         </div>
                                     </li>
                                     <li className="flex">
@@ -118,7 +132,7 @@ const ContactUs = () => {
                             </div>
 
                             {/* Contact Form */}
-                            <div className="card h-fit max-w-6xl p-5 md:p-12 shadow-lg" id="form"> {/* Added shadow here */}
+                            <div className="bgd text-light card h-fit max-w-6xl p-5 md:p-12 shadow-lg" id="form"> {/* Added shadow here */}
                                 <h2 className="mb-4 text-2xl font-bold dark:text-white">Ready to Get Started?</h2>
                                 <form id="contactForm" onSubmit={handleSubmit}>
                                     <div className="contact-form-container">
@@ -171,45 +185,120 @@ const ContactUs = () => {
             </section>
 
             <style jsx>{`
-                .contact-form-container {
-                    background-color: #fff;
-                    border-radius: 8px;
-                    padding: 20px;
-                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                    max-width: 600px;
-                    margin: 0 auto;
-                }
-                .input-group {
-                    margin-bottom: 1.5rem;
-                }
-                .input-field {
-                    width:  100%;
-                    padding: 12px;
-                    border-radius: 8px;
-                    border: 1px solid #ddd;
-                    font-size: 1rem;
-                    outline: none;
-                    box-sizing: border-box;
-                    transition: border 0.3s ease;
-                }
-                .input-field:focus {
-                    border: 1px solid #3490dc;
-                    box-shadow: 0 0 0 2px rgba(52, 144, 220, 0.2);
-                }
-                .submit-btn {
-                    background-color: #3b82f6;
-                    color: white;
-                    padding: 12px 24px;
-                    border: none;
-                    border-radius: 8px;
-                    cursor: pointer;
-                    font-size: 1rem;
-                    transition: background-color 0.3s ease;
-                }
-                .submit-btn:hover {
-                    background-color: #2779bd;
-                }
-            `}</style>
+    .contact-form-container {
+        background-color: #1e1e1e;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        max-width: 600px;
+        margin: 0 auto;
+        border: 1px solid #2e2e2e;
+        transition: all 0.3s ease;
+    }
+
+    .contact-form-container:hover {
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .input-group {
+        margin-bottom: 2rem;
+        position: relative;
+    }
+
+    .input-field {
+        width: 100%;
+        padding: 14px 16px;
+        border-radius: 8px;
+        border: 1px solid #333;
+        font-size: 1rem;
+        outline: none;
+        box-sizing: border-box;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        background-color: #252525;
+        color: #e0e0e0;
+    }
+
+    .input-field:focus {
+        border: 1px solid #6ac7ff;
+        box-shadow: 0 0 0 3px rgba(106, 199, 255, 0.2);
+        background-color: #2a2a2a;
+    }
+
+    .input-field::placeholder {
+        color: #555;
+    }
+
+    .input-group:after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(to right, #6ac7ff, #9d7aff);
+        transform: scaleX(0);
+        transition: transform 0.4s ease;
+    }
+
+    .input-group:focus-within:after {
+        transform: scaleX(1);
+    }
+
+    .submit-btn {
+        background: linear-gradient(145deg, #6ac7ff, #9d7aff);
+        color: #121212;
+        padding: 14px 28px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        box-shadow: 0 4px 15px rgba(106, 199, 255, 0.2);
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(106, 199, 255, 0.3);
+    }
+
+    .submit-btn:active {
+        transform: translateY(0);
+    }
+
+    .submit-btn:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(145deg, #9d7aff, #6ac7ff);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .submit-btn:hover:after {
+        opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+        .contact-form-container {
+            padding: 20px;
+        }
+        
+        .input-field {
+            padding: 12px 14px;
+        }
+        
+        .submit-btn {
+            padding: 12px 24px;
+        }
+    }
+`}</style>
         </>
     );
 };

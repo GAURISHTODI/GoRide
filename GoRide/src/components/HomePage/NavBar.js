@@ -1,27 +1,30 @@
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './NavBar.css';
+
 
 const UserNavbar = () => {
     const navigate = useNavigate();
 
     const handleSignup = () => {
-        navigate('/signup'); // Redirect to signup page
+        navigate('/signup');
     };
 
     const handleLogin = () => {
-        navigate('/login'); // Redirect to login page
+        navigate('/login');
     };
 
-    // Define a custom style for the brand text
     const brandStyle = {
-        color: '#007bff', // Blue color
-        fontWeight: 'bold', // Bold text
-        fontSize: '1.5rem', // Slightly larger font size
+        color: '#9d7aff',
+        fontWeight: 'bold',
+        fontSize: '1.5rem',
     };
+
+
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <nav className="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top" style={{ backgroundColor: '#1e1e1e' }}>
             <div className="container-fluid">
                 <Link className="navbar-brand" to="/" style={brandStyle}>GoRide</Link>
                 <button
@@ -39,26 +42,25 @@ const UserNavbar = () => {
                 <div className="collapse navbar-collapse" id="userNavbarNav">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/">Home</Link>
-                        </li>
-                        
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/about">About</Link>
+                            <Link className="nav-link text-white purp" to="/">Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/contact">Contact Us</Link>
+                            <Link className="nav-link text-white purp" to="/about">About</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link text-white purp" to="/contact">Contact Us</Link>
                         </li>
                     </ul>
 
                     <div className="d-flex">
                         <button
-                            className="btn btn-outline-primary me-2"
+                            className="btn  me-2 pb"
                             onClick={handleLogin}
                         >
                             Login
                         </button>
                         <button
-                            className="btn btn-primary"
+                            className="btn pb"
                             onClick={handleSignup}
                         >
                             Signup
