@@ -1,7 +1,44 @@
 import React, { useState } from 'react';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, data, useNavigate } from 'react-router-dom';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { auth,db } from '../firebase';
+import { doc, getDoc } from "firebase/firestore";
+async function handleLogin(navigate, setModalMessage, setModalVisible) {
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const id = userCredential.user.uid; // Get user ID after login
+        const docRef = doc(db, "users", id);
+        const docSnap = await getDoc(docRef); // Await getDoc
 
+        if (docSnap.exists()) {
+            const userData = docSnap.data(); // Retrieve document data
+            localStorage.setItem("id", id);
+            localStorage.setItem("role", userData.role);
+            localStorage.setItem("username", userData.name);
+
+            console.log(localStorage.getItem("id"));
+
+            if (userData.role === "user") {
+                navigate("/search");
+            } else if (userData.role === "driver") {
+                navigate("/publish-ride");
+            } else {
+                setModalMessage("Role not recognized.");
+                setModalVisible(true);
+            }
+
+            setModalMessage(`Login successful!\nWelcome ${userData.name}`);
+            setModalVisible(true);
+        } else {
+            setModalMessage("User data not found.");
+            setModalVisible(true);
+        }
+    } catch (error) {
+        setModalMessage(error.message);
+        setModalVisible(true);
+    }
+}
 const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
@@ -13,7 +50,7 @@ const Login = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        
+
         // Email validation
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!emailRegex.test(email)) {
@@ -22,7 +59,7 @@ const Login = () => {
         } else {
             setEmailError('');
         }
-        
+
         // Password validation
         if (password.length < 8) {
             setPasswordError('Password must be at least 8 characters long');
@@ -30,72 +67,29 @@ const Login = () => {
         } else {
             setPasswordError('');
         }
-        
+
         try {
-            const response = await fetch('http://GoRide.ap-south-1.elasticbeanstalk.com/api/Auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
-            });
-        
-            const data = await response.json(); // Data is defined here.
-            
-            // Log the data to check the response
-            console.log("Login response data:", data);  
-            
-            if (response.ok) {
-                // Set success message and show modal
-                setModalMessage('Login successful!');
-                setModalVisible(true);
-    
-                // Store the auth token in localStorage
-                localStorage.setItem('authToken', data.token);
-                localStorage.setItem('id', data.id); 
-                localStorage.setItem('role', data.role); 
-
-                 // Assuming `data.token` contains the auth token
-                localStorage.setItem('username', data.name);
-               
-                console.log(data.name);
-                console.log(localStorage.getItem('id'));
-
-                // Log immediately after setting
-    
-                // Redirect based on role
-                if (data.role === 'user') {
-                    navigate('/search');
-                } else if (data.role === 'driver') {
-                    navigate('/publish-ride');
-                } else {
-                    setModalMessage('Role not recognized.');
-                    setModalVisible(true);
-                }
-            } else {
-                setModalMessage(data.error || 'An error occurred during login.');
-                setModalVisible(true);
-            }
+            handleLogin(navigate,setModalMessage ,setModalVisible);
         } catch (error) {
             console.error('Error during login:', error);
             setModalMessage('An error occurred. Please try again later.');
             setModalVisible(true);
         }
     };
-    
+
     // Redirect to signup page
     const handleCreate = () => {
         navigate('/signup');
     };
-    
-    
+
+
     // Close modal function
     const closeModal = () => {
         setModalVisible(false);
         // Optionally, you can navigate to a different page when the modal is closed
         // navigate('/'); // Uncomment if you want to redirect to home on modal close
     };
-    
+
 
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -109,7 +103,7 @@ const Login = () => {
                     <form className="space-y-6" onSubmit={handleSubmit}>
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                                Email address 
+                                Email address
                             </label>
                             <div className="mt-1">
                                 <input
@@ -188,7 +182,7 @@ const Login = () => {
 
                         <div className="mt-6 grid grid-cols-1 gap-1">
                             <div>
-                              
+
                                 <button
                                     onClick={handleCreate}
                                     className="w-full flex items-center justify-center px-8 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-blue-600 bg-white hover:bg-gray-50 mt-4"
@@ -226,3 +220,39 @@ const Login = () => {
 };
 
 export default Login;
+
+/*
+await signInWithEmailAndPassword(auth, email, password) //READ OPERATION
+                .then((userCredential) => {
+                    const id = auth.currentUser.uid;
+                    try {
+                        const docRef = doc(db, "users", id);
+                        const docSnap = getDoc(docRef);
+                            const userData = docSnap.data();
+                            email = userData.email
+                            localStorage.setItem('id', id);
+                            localStorage.setItem('role', userData.role);
+                            localStorage.setItem('username', userData.name);
+                            console.log(localStorage.getItem('id'));
+                            if (userData.role === 'user') {
+                                navigate('/search');
+                            } else if (userData.role === 'driver') {
+                                navigate('/publish-ride');
+                            } else {
+                                setModalMessage('Role not recognized.');
+                                setModalVisible(true);
+                            }
+                            setModalMessage('Login successful!');
+                            setModalVisible(true);
+                    }
+                    catch (error) {
+                        setModalMessage(error.message);
+                        setModalVisible(true);
+                    }
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    setModalMessage(error.message);
+                    setModalVisible(true);
+                });*/

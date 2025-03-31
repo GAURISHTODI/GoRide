@@ -3,7 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
-import { FaUser , FaEnvelope, FaLock, FaCar, FaIdCard, FaCheckCircle } from 'react-icons/fa'; // Importing icons
+import { FaUser, FaEnvelope, FaLock, FaCar, FaIdCard, FaCheckCircle } from 'react-icons/fa'; // Importing icons
+import { auth, provider ,db} from '../firebase'
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { collection, addDoc } from "firebase/firestore"; 
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -61,12 +64,33 @@ const Signup = () => {
         }
 
         if (emailRegex.test(email) && passwordRegex.test(password) && password === confirmPassword && isValidMobileNumber) {
-            const user = { name, role, email, password, carNumber, licenseNumber, cardLastFour, mobileNumber };
+            const user1 = { name, role, email, password, carNumber, licenseNumber, cardLastFour, mobileNumber };
 
             try {
-                const response = await axios.post('http://GoRide.ap-south-1.elasticbeanstalk.com/api/Signup', user);
-                setModalMessage(response.data.message);
-                setModalVisible(true);
+                await createUserWithEmailAndPassword(auth, email, password)  //CREATE OPERATION
+                    .then((userCredential) => {
+                        const user = userCredential.user;
+                        try{
+                            const docRef= addDoc(collection(db, "users"), {
+                                uid: auth.currentUser.uid,
+                                name: name,
+                                email: email,
+                                mobileNumber: mobileNumber,
+                                role: role.toLowerCase()
+                              });
+                              setModalMessage(userCredential.message);
+                              setModalVisible(true);
+                        }
+                        catch(error){
+                            setModalMessage('Signup failed: ' + (error.message));
+                            setModalVisible(true);
+                        }
+
+                    })
+                    .catch((error) => {
+                        setModalMessage('Signup failed: ' + (error.message));
+                        setModalVisible(true);
+                    });
             } catch (error) {
                 setModalMessage('Signup failed: ' + (error.response?.data?.error || error.message));
                 setModalVisible(true);
@@ -78,7 +102,6 @@ const Signup = () => {
         setModalVisible(false);
         navigate('/login');
     };
-
     return (
         <>
             {modalVisible && (
@@ -103,7 +126,7 @@ const Signup = () => {
                         <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">Name</label>
                             <div className="relative">
-                                <FaUser  className="absolute left-3 top-2.5 text-gray-400" />
+                                <FaUser className="absolute left-3 top-2.5 text-gray-400" />
                                 <input
                                     type="text"
                                     id="name"
