@@ -3,13 +3,13 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBzZBxiJ4Sl0U2x5r-vz_GkvLFSHCxV9zA",
-  authDomain: "GoRide-f5117.firebaseapp.com",
-  projectId: "GoRide-f5117",
-  storageBucket: "GoRide-f5117.firebasestorage.app",
-  messagingSenderId: "6788873029",
-  appId: "1:6788873029:web:271f1bfce7b0ac235adc2c",
-  measurementId: "G-V6F0PJXM4Z"
+  apiKey: "AIzaSyDHbTi-SYk_Wqw7Q51d58qFkuQ7qEhF84E",
+  authDomain: "coride-623aa.firebaseapp.com",
+  projectId: "coride-623aa",
+  storageBucket: "coride-623aa.firebasestorage.app",
+  messagingSenderId: "384589858306",
+  appId: "1:384589858306:web:ff6b6cd97b05207801c91b",
+  measurementId: "G-F5L2920G4B"
 };
 
 // Initialize Firebase
