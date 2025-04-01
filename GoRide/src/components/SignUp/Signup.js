@@ -224,8 +224,9 @@ const Signup = () => {
                             </>
                         )} */}
                         <div className="mb-4">
+                            
                             <label className="block tcs2 text-sm font-bold mb-2" htmlFor="mobileNumber">Mobile Number</label>
-                            <PhoneInput
+                            {/* <PhoneInput
                                 id="mobileNumber"
                                 placeholder="Enter mobile number"
                                 value={mobileNumber}
@@ -244,7 +245,32 @@ const Signup = () => {
                                     width: "100%",
                                     outline: "none", // Removes default browser outline
                                 }}
+                            /> */}
+                            <div className="relative">
+                                <FaUser className="absolute left-3 top-2.5 text-gray-400" />
+                                <input
+                                type="tel"
+                                id="mobileNumber"
+                                placeholder="Enter mobile number"
+                                value={mobileNumber}
+                                onChange={(e) => setMobileNumber(e.target.value)}
+                                required
+                                className={`shadow rounded w-full py-2 px-10 leading-tight ${mobileError ? 'border-red-500' : ''}`}
+                                onFocus={() => setIsFocused2(true)}
+                                onBlur={() => setIsFocused2(false)}
+                                style={{
+                                    backgroundColor: "#1f1f1f",
+                                    color: `${isFocused2 ? "#9e7aff" : "#8164d0"}`,
+                                    border: `2px solid ${isFocused2 ? "#9e7aff" : "#534a6a"}`,
+                                    padding: "40px",
+                                    borderRadius: "5px",
+                                    width: "100%",
+                                    outline: "none", // Removes default browser outline
+                                }}
                             />
+                            </div>
+                            
+
                             {mobileError && <p className="text-red-500 text-xs">{mobileError}</p>}
                         </div>
                         <div className="mb-4">
@@ -286,12 +312,12 @@ const Signup = () => {
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
                                     className={`shadow rounded w-full py-2 px-10  leading-tight ${passwordError ? 'border-red-500' : ''}`}
-                                    onFocus={() => setIsFocused3(true)}
-                                    onBlur={() => setIsFocused3(false)}
+                                    onFocus={() => setIsFocused4(true)}
+                                    onBlur={() => setIsFocused4(false)}
                                     style={{
                                         backgroundColor: "#1f1f1f",
-                                        color: `${isFocused3 ? "#9e7aff" : "#8164d0"}`,
-                                        border: `2px solid ${isFocused3 ? "#9e7aff" : "#534a6a"}`,
+                                        color: `${isFocused4 ? "#9e7aff" : "#8164d0"}`,
+                                        border: `2px solid ${isFocused4 ? "#9e7aff" : "#534a6a"}`,
                                         padding: "40px",
                                         borderRadius: "5px",
                                         width: "100%",
@@ -313,12 +339,12 @@ const Signup = () => {
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     required
                                     className={`shadow rounded w-full py-2 px-10  leading-tight ${confirmPasswordError ? 'border-red-500' : ''}`}
-                                    onFocus={() => setIsFocused3(true)}
-                                    onBlur={() => setIsFocused3(false)}
+                                    onFocus={() => setIsFocused5(true)}
+                                    onBlur={() => setIsFocused5(false)}
                                     style={{
                                         backgroundColor: "#1f1f1f",
-                                        color: `${isFocused3 ? "#9e7aff" : "#8164d0"}`,
-                                        border: `2px solid ${isFocused3 ? "#9e7aff" : "#534a6a"}`,
+                                        color: `${isFocused5 ? "#9e7aff" : "#8164d0"}`,
+                                        border: `2px solid ${isFocused5 ? "#9e7aff" : "#534a6a"}`,
                                         padding: "40px",
                                         borderRadius: "5px",
                                         width: "100%",
