@@ -7,6 +7,8 @@ import MapComponent from '../User/MapComponent';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
 import { Timestamp } from "firebase/firestore";
+import "./SearchSection.css"
+
 const sampleTrips = []
 // Inputs
 const startLocation = "YourStartLocation";
@@ -35,6 +37,12 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
     const [rideBookings, setRideBookings] = useState({});
     const [availableTrips, setAvailableTrips] = useState([]);
     const [isJoining, setIsJoining] = useState(false);
+
+    const [isFocused, setIsFocused] = useState(false);
+    const [isFocused2, setIsFocused2] = useState(false);
+    const [isFocused3, setIsFocused3] = useState(false);
+    const [isFocused4, setIsFocused4] = useState(false);
+
 
     // Scroll to top when the component is mounted
     useEffect(() => {
@@ -150,8 +158,8 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
             const q = query(
                 collection(db, "requests"),
                 where("date", "==", date.toString()),
-                where("dest","==",normalizedTo),
-                where("start","==",normalizedFrom)
+                where("dest", "==", normalizedTo),
+                where("start", "==", normalizedFrom)
             );
             const querySnapshot = await getDocs(q);
             const filteredTrips = []
@@ -267,14 +275,14 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
     return (
         <>
             <UserNavbar />
-            <section id="Search" className="py-10">
+            <section id="Search" className="py-10 bgch">
                 <div className="container mx-auto px-4">
-                    <div className="bg-white shadow-md rounded-lg p-6">
-                        <h2 className="text-2xl font-bold mb-4">Search for a ride</h2>
+                    <div className="bgch2 shadow-md rounded-lg p-6">
+                        <h2 className="text-2xl font-bold mb-4 tch">Search for a ride</h2>
                         <form className="space-y-4" onSubmit={handleSubmit}>
                             <div className="flex space-x-4">
                                 <div className="flex-1">
-                                    <label className="block text-gray-700" htmlFor="from">From</label>
+                                    <label className="block tch2" htmlFor="from">From</label>
                                     <input
                                         ref={fromInputRef}
                                         className="w-full border-gray-300 rounded-lg p-2"
@@ -283,10 +291,21 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
                                         type="text"
                                         value={from}
                                         onChange={(e) => setFrom(e.target.value)}
+                                        onFocus={() => setIsFocused(true)}
+                                        onBlur={() => setIsFocused(false)}
+                                        style={{
+                                            backgroundColor: "#1f1f1f",
+                                            color: `${isFocused ? "#9e7aff" : "#8164d0"}`,
+                                            border: `2px solid ${isFocused ? "#9e7aff" : "#534a6a"}`,
+                                            padding: "8px",
+                                            borderRadius: "5px",
+                                            width: "100%",
+                                            outline: "none", // Removes default browser outline
+                                        }}
                                     />
                                 </div>
                                 <div className="flex-1">
-                                    <label className="block text-gray-700" htmlFor="to">To</label>
+                                    <label className="block tch2" htmlFor="to">To</label>
                                     <input
                                         ref={toInputRef}
                                         className="w-full border-gray-300 rounded-lg p-2"
@@ -295,12 +314,23 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
                                         type="text"
                                         value={to}
                                         onChange={(e) => setTo(e.target.value)}
+                                        onFocus={() => setIsFocused2(true)}
+                                        onBlur={() => setIsFocused2(false)}
+                                        style={{
+                                            backgroundColor: "#1f1f1f",
+                                            color: `${isFocused2 ? "#9e7aff" : "#8164d0"}`,
+                                            border: `2px solid ${isFocused2 ? "#9e7aff" : "#534a6a"}`,
+                                            padding: "8px",
+                                            borderRadius: "5px",
+                                            width: "100%",
+                                            outline: "none", // Removes default browser outline
+                                        }}
                                     />
                                 </div>
                             </div>
                             <div className="flex space-x-4">
                                 <div className="flex-1">
-                                    <label className="block text-gray-700" htmlFor="date">Date</label>
+                                    <label className="block tch2" htmlFor="date">Date</label>
                                     <input
                                         className="w-full border-gray-300 rounded-lg p-2"
                                         id="date"
@@ -308,22 +338,44 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
                                         min={currentDate}
                                         value={date}
                                         onChange={(e) => setDate(e.target.value)}
+                                        onFocus={() => setIsFocused3(true)}
+                                        onBlur={() => setIsFocused3(false)}
+                                        style={{
+                                            backgroundColor: "#1f1f1f",
+                                            color: `${isFocused3 ? "#9e7aff" : "#8164d0"}`,
+                                            border: `2px solid ${isFocused3 ? "#9e7aff" : "#534a6a"}`,
+                                            padding: "8px",
+                                            borderRadius: "5px",
+                                            width: "100%",
+                                            outline: "none", // Removes default browser outline
+                                        }}
                                     />
                                 </div>
-                                <div className="flex-1">
-                                    <label className="block text-gray-700" htmlFor="time">Time</label>
+                                {/* <div className="flex-1">
+                                    <label className="block tch2" htmlFor="time">Time</label>
                                     <input
                                         className="w-full border-gray-300 rounded-lg p-2"
                                         id="time"
                                         type="time"
                                         value={time}
                                         onChange={(e) => setTime(e.target.value)}
+                                        onFocus={() => setIsFocused4(true)}
+                                        onBlur={() => setIsFocused4(false)}
+                                        style={{
+                                            backgroundColor: "#1f1f1f",
+                                            color: `${isFocused4 ? "#9e7aff" : "#8164d0"}`,
+                                            border: `2px solid ${isFocused4 ? "#9e7aff" : "#534a6a"}`,
+                                            padding: "8px",
+                                            borderRadius: "5px",
+                                            width: "100%",
+                                            outline: "none", // Removes default browser outline
+                                        }}
                                     />
-                                </div>
+                                </div> */}
                             </div>
                             <button
                                 type="submit"
-                                className="w-full bg-blue-500 text-white rounded-lg p-2 hover:bg-blue-600"
+                                className="w-full  rounded-lg p-2 bgch3 pbh"
                                 disabled={isLoading}
                             >
                                 {isLoading ? 'Calculating...' : 'Search'}
@@ -331,10 +383,10 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
                         </form>
 
                         {distanceInfo && (
-                            <div className="mt-4 p-3 bg-blue-50 rounded-lg">
-                                <h3 className="text-lg font-semibold mb-2">Trip Details</h3>
-                                <p className="text-gray-700">Distance: {distanceInfo.distance}</p>
-                                <p className="text-gray-700">Estimated Travel Time: {distanceInfo.duration}</p>
+                            <div className="mt-4 p-3 bgch4 rounded-lg">
+                                <h3 className="text-lg font-semibold mb-2 tch">Trip Details</h3>
+                                <p className="tch3">Distance: {distanceInfo.distance}</p>
+                                <p className="tch3">Estimated Travel Time: {distanceInfo.duration}</p>
                             </div>
                         )}
                         {isSubmitted && from && to && (
@@ -346,49 +398,49 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
                         {/* Display available trips (new component) */}
                         {isSubmitted && (
                             <div className="mt-10">
-                                <h3 className="text-xl font-bold mb-4">Available Trips</h3>
+                                <h3 className="text-xl font-bold mb-4 tch">Available Trips</h3>
 
                                 {availableTrips.length > 0 ? (
-                                    <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                                    <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bgch4 p-4 rounded">
                                         {availableTrips.map((trip) => (
-                                            <div className="bg-white rounded-lg shadow-md p-4 border border-gray-200 hover:shadow-lg transition-shadow">
+                                            <div className="rounded-lg shadow-md p-4 bgch5 transition-shadow">
                                                 <div className="mb-4">
-                                                    <h4 className="text-lg font-semibold">{trip.name || 'Anonymous User'}</h4>
+                                                    <h4 className="text-lg font-semibold tch">{trip.name || 'Anonymous User'}</h4>
                                                     <div className="flex items-center text-gray-600 mt-1">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="#c9b8fa">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                                         </svg>
-                                                        <span>{trip.phone || 'Phone number not available'}</span>
+                                                        <span className='tch4'>{trip.phone || 'Phone number not available'}</span>
                                                     </div>
                                                 </div>
 
                                                 <div className="space-y-2 text-sm">
                                                     <div className="flex items-center">
-                                                        <span className="w-24 font-medium">From:</span>
-                                                        <span className="text-gray-700">{trip.start}</span>
+                                                        <span className="w-24 font-medium tch5">From:</span>
+                                                        <span className="tch5">{trip.start}</span>
                                                     </div>
                                                     <div className="flex items-center">
-                                                        <span className="w-24 font-medium">To:</span>
-                                                        <span className="text-gray-700">{trip.dest}</span>
+                                                        <span className="w-24 font-medium tch5">To:</span>
+                                                        <span className="tch5">{trip.dest}</span>
                                                     </div>
                                                     <div className="flex items-center">
-                                                        <span className="w-24 font-medium">Max Capacity</span>
-                                                        <span className="text-gray-700">{trip.max_person}</span>
+                                                        <span className="w-24 font-medium tch5">Max Capacity</span>
+                                                        <span className="tch5">{trip.max_person}</span>
                                                     </div>
                                                     <div className="flex items-center">
-                                                        <span className="w-24 font-medium">Current Capacity</span>
-                                                        <span className="text-gray-700">{trip.curr_person}</span>
+                                                        <span className="w-24 font-medium tch5">Current Capacity</span>
+                                                        <span className="tch5">{trip.curr_person}</span>
                                                     </div>
                                                     <div className="flex items-center">
-                                                        <span className="w-24 font-medium">Date:</span>
-                                                        <span className="text-gray-700">{(trip.time).toDate().toLocaleString("en-US", {
+                                                        <span className="w-24 font-medium tch5">Date:</span>
+                                                        <span className="tch5">{(trip.time).toDate().toLocaleString("en-US", {
                                                             year: "numeric",
                                                             month: "2-digit",
                                                             day: "2-digit",
                                                             hour: "2-digit",
                                                             minute: "2-digit",
                                                             second: "2-digit",
-                                                            hour12: true 
+                                                            hour12: true
                                                         })}
                                                         </span>
                                                     </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { collection, getDocs, addDoc, Timestamp } from "firebase/firestore";
 import { db } from "../firebase"; // Ensure you have your Firebase config file
 import UserNavbar from "./UserNavbar";
+import "./YourRides.css"
 
 const YourRides = () => {
   const [trips, setTrips] = useState([]);
@@ -157,15 +158,15 @@ const YourRides = () => {
   return (
     <>
       <UserNavbar />
-      <div className="min-h-screen bg-black text-white p-4">
+      <div className="min-h-screen  bgch p-4">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-bold mb-4 text-center text-purple-400">Your Rides</h2>
+          <h2 className="text-2xl font-bold mb-4 text-center tch">Your Rides</h2>
           
           {/* Create New Trip Button */}
           <div className="flex justify-end mb-6">
             <button 
               onClick={() => setShowForm(!showForm)}
-              className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg"
+              className=" bgch3 font-bold py-2 px-4 rounded-lg"
             >
               {showForm ? "Cancel" : "+ Create New Trip"}
             </button>
@@ -173,13 +174,13 @@ const YourRides = () => {
 
           {/* New Trip Form */}
           {showForm && (
-            <div className="bg-gray-900 p-6 rounded-lg mb-6 border border-purple-500">
-              <h3 className="text-xl font-bold mb-4 text-purple-400">Create New Trip</h3>
+            <div className="bg-gray-900 p-6 rounded-lg mb-6 bgch2">
+              <h3 className="text-xl font-bold mb-4 tch">Create New Trip</h3>
               {error && <p className="text-red-500 mb-4">{error}</p>}
               <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">From</label>
+                    <label className="block text-sm font-medium tch4 mb-1">From</label>
                     <input
                       type="text"
                       name="from"
@@ -193,7 +194,7 @@ const YourRides = () => {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">To</label>
+                    <label className="block text-sm font-medium tch4 mb-1">To</label>
                     <input
                       type="text"
                       name="to"
@@ -207,7 +208,7 @@ const YourRides = () => {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Date</label>
+                    <label className="block text-sm font-medium tch4 mb-1">Date</label>
                     <input
                       type="date"
                       name="date"
@@ -220,7 +221,7 @@ const YourRides = () => {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Time</label>
+                    <label className="block text-sm font-medium tch4 mb-1">Time</label>
                     <input
                       type="time"
                       name="time"
@@ -232,7 +233,7 @@ const YourRides = () => {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-1">Max Capacity</label>
+                    <label className="block text-sm font-medium tch4 mb-1">Max Capacity</label>
                     <select
                       name="maxCapacity"
                       value={newTrip.maxCapacity}

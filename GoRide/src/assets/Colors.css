@@ -1,6 +1,5 @@
 .bgd{
-    background-color: #121212
-    ;
+    background-color: #121212;
 }
 
 .bgd2{
@@ -44,3 +43,13 @@
     
 
 }
+
+style={{
+    backgroundColor: "#1f1f1f",
+    color: `${isFocused ? "#9e7aff" : "#8164d0"}`,
+    border: `2px solid ${isFocused ? "#9e7aff" : "#534a6a"}`,
+    padding: "8px",
+    borderRadius: "5px",
+    width: "100%",
+    outline: "none", // Removes default browser outline
+}}

@@ -63,7 +63,7 @@ const UserNavbar = () => {
                             <Link className="nav-link tc2 purp" to="/search">Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link tc2 purp" to="/user-rides">Rides</Link>
+                            <Link className="nav-link tc2 purp" to="/user-rides">My Rides</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link tc2 purp" to="/user-about">About</Link>
