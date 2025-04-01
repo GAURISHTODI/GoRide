@@ -1,17 +1,3 @@
-.pb{
-    border: 1px solid #9d7aff;
-    color: #9d7aff;
-}
-
-.pb:hover{
-    border: 1px solid #9d7aff;
-    color: #121212;
-    background-color: #9d7aff;
-    box-shadow: 0 6px 20px #9d7aff5b;
-    
-
-}
-
 .bgd{
     background-color: #121212
     ;
@@ -23,6 +9,10 @@
     border-radius: 20px;
 
                 
+}
+
+.rtc{
+    color: #b0b0b0;
 }
 
 .bgc{
@@ -38,4 +28,10 @@
 }
 .tc3{
     color: #534a6a;
+}
+
+.fc{
+    background-color: #262626;
+    color: #9da4b0;
+
 }

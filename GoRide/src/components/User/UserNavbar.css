@@ -1,0 +1,75 @@
+.pb{
+    border: 1px solid #9d7aff;
+    color: #9d7aff;
+}
+
+.pb:hover{
+    border: 1px solid #9d7aff;
+    color: #121212;
+    background-color: #9d7aff;
+    box-shadow: 0 6px 20px #9d7aff5b;
+    
+
+}
+
+.bgd{
+    background-color: #121212;
+    border: solid 1px #c9b8fa;
+    color: #c9b8fa;
+}
+
+.bgd2{
+    background-color: #1f1f1f
+    ;
+    border-radius: 20px;
+
+                
+}
+
+.bgd:hover{
+    background-color: #c9b8fa;
+    border: solid 1px #121212;
+    color: #121212;
+    box-shadow: 0 6px 20px #9d7aff5b
+}
+
+.bgd3{
+    background-color: #121212;
+    border: solid 1px #9d7aff;
+    color: #9d7aff;
+}
+
+.bgd3:hover{
+    background-color: #9d7aff;
+    border: solid 1px #121212;
+    color: #121212;
+    box-shadow: 0 6px 20px #9d7aff5b
+}
+
+.bgd4{
+    background-color: #9d7aff;
+    border: solid 1px #121212;
+    color: #121212;
+}
+
+.bgd4:hover{
+    background-color: #121212;
+    border: solid 1px #9d7aff;
+    color: #9d7aff;
+    box-shadow: 0 6px 20px #9d7aff5b
+}
+
+.bgc{
+    background-color: #2f2a3c;
+}
+
+
+.tc{
+    color: #9e7aff;
+}
+.tc2{
+    color: #c9b8fa;
+}
+.tc3{
+    color: #534a6a;
+}

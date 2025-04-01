@@ -3,6 +3,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // Import Bootstrap JS for toggler functionality
 import { auth,db } from '../firebase'
+import './UserNavbar.css';
+
 const UserNavbar = () => {
     const [isRideSuccessful, setIsRideSuccessful] = useState(false); // Track ride status
     const navigate = useNavigate();
@@ -27,7 +29,7 @@ const UserNavbar = () => {
 
     // Custom style for brand text
     const brandStyle = {
-        color: '#007bff', // Blue color
+        color: '#9d7aff', // Blue color
         fontWeight: 'bold',
         fontSize: '1.5rem',
     };
@@ -40,7 +42,7 @@ const UserNavbar = () => {
     }, []);
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <nav className="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top" style={{ backgroundColor: '#1e1e1e' }}>
             <div className="container-fluid">
                 <Link className="navbar-brand" to="/search" style={brandStyle}>GoRide</Link>
                 <button
@@ -58,34 +60,34 @@ const UserNavbar = () => {
                 <div className="collapse navbar-collapse" id="userNavbarNav">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/search">Home</Link>
+                            <Link className="nav-link tc2 purp" to="/search">Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/user-rides">Rides</Link>
+                            <Link className="nav-link tc2 purp" to="/user-rides">Rides</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/user-about">About</Link>
+                            <Link className="nav-link tc2 purp" to="/user-about">About</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/user-contact">Contact Us</Link>
+                            <Link className="nav-link tc2 purp" to="/user-contact">Contact Us</Link>
                         </li>
                     </ul>
 
                     <div className="d-flex">
                         <button
-                            className="btn btn-outline-primary me-2"
+                            className="btn btn-outline-primary me-2 bgd"
                             onClick={handleLogin}
                         >
                             Profile
                         </button>
                         <button
-                            className="btn btn-outline-success me-2"
+                            className="btn btn-outline-primary me-2 bgd3"
                             onClick={() => navigate('/chat')} // Navigate to chat
                         >
                             Chat
                         </button>
                         <button
-                            className="btn btn-primary"
+                            className="btn btn-primary bgd4"
                             onClick={handleLogout}
                         >
                             Log Out

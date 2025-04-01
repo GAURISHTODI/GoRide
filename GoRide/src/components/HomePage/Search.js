@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import MapComponent from '../User/MapComponent';
 import UserNavbar from './NavBar';
+import "./Search.css"
 
 const Search = ({ setDistance }) => {
     const navigate = useNavigate();
@@ -16,6 +17,12 @@ const Search = ({ setDistance }) => {
     const isLoggedIn = true; // Simulate logged-in state or replace with real check
     
     // Scroll to top when the component is mounted
+    // Scroll to top when the component is mounted
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -206,9 +213,9 @@ const Search = ({ setDistance }) => {
                             <MapComponent from={from} to={to} setDistance={setDistanceInfo} />
                         </div>
                     )}
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
         </>
     );
 };
