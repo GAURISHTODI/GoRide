@@ -96,7 +96,7 @@ const App = () => {
   
 
     return (
-        <LoadScript googleMapsApiKey="AIzaSyDrQeNVgH6Jws5AngUuXOwpBMX3bywLWZI" libraries={['places']}>
+        <LoadScript googleMapsApiKey="AIzaSyBywJINBhCyFlA_8gTd5LMnHc975kEXQtE" libraries={['places']}>
             <div>
             <Routes>
     {/* Public routes */}

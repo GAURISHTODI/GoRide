@@ -43,7 +43,7 @@ const PaymentComponent = ({ amount, rideId, userId, onPaymentSuccess, onPaymentF
                 console.log("📦 Payment Payload:", paymentPayload);
     
                 // Send the payment details to your API to save the payment
-                fetch('http://GoRide.ap-south-1.elasticbeanstalk.com/api/Payment', {
+                fetch('http://rideshare.ap-south-1.elasticbeanstalk.com/api/Payment', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

@@ -13,7 +13,7 @@ const ChatComponent = ({ username, chatroom, role }) => {  // Accept 'role' as p
     useEffect(() => {
         const connect = async () => {
             const connection = new signalR.HubConnectionBuilder()
-    .withUrl("http://GoRide.ap-south-1.elasticbeanstalk.com/chathub", {
+    .withUrl("http://rideshare.ap-south-1.elasticbeanstalk.com/chathub", {
         transport: signalR.HttpTransportType.WebSockets
     })
     .withAutomaticReconnect()

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://GoRide.ap-south-1.elasticbeanstalk.com/api/rides';
+const API_URL = 'http://rideshare.ap-south-1.elasticbeanstalk.com/api/rides';
 
 const RideService = {
     getRides: () => {
