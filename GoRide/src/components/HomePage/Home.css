@@ -39,3 +39,35 @@
     font-size: 16px; /* Set font size */
     color: #000;
 }
+
+.bgd{
+    background-color: #121212
+    ;
+}
+
+.bgd2{
+    background-color: #1f1f1f
+    ;
+    border-radius: 20px;
+
+                
+}
+
+.rtc{
+    color: #b0b0b0;
+}
+
+.bgc{
+    background-color: #121212;
+}
+
+
+.tc{
+    color: #9e7aff;
+}
+.tc2{
+    color: #c9b8fa;
+}
+.tc3{
+    color: #534a6a;
+}

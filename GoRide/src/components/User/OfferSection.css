@@ -1,0 +1,58 @@
+.bgd{
+    background-color: #121212
+    ;
+}
+
+.bgd2{
+    background-color: #1f1f1f
+    ;
+    border-radius: 20px;
+
+                
+}
+
+.rtc{
+    color: #b0b0b0;
+}
+
+.bgc{
+    background-color: #121212;
+
+}
+
+.bgc2{
+    background-color: #9e7aff;
+    color: #121212;
+    
+}
+
+.bgc2{
+    background-color: #9e7aff;
+    color: #121212;
+    
+}
+
+.bgc2:hover{
+    border: 1px solid #9d7aff;
+    color: #121212;
+    background-color: #9d7aff;
+    box-shadow: 0 6px 20px #9d7aff5b;
+    
+
+}
+
+.tc{
+    color: #9e7aff;
+}
+.tc2{
+    color: #c9b8fa;
+}
+.tc3{
+    color: #534a6a;
+}
+
+.fc{
+    background-color: #262626;
+    color: #9da4b0;
+
+}

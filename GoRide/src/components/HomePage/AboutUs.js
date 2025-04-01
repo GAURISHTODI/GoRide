@@ -1,6 +1,7 @@
 import React from 'react';
 import NavbarDriver from '../Driver/NavBarDriver';
 import UserNavbar from './NavBar';
+import "./AboutUs.css"
 
 const AboutUs = () => {
     return (
@@ -168,7 +169,7 @@ const AboutUs = () => {
     .team-image {
         font-size: 70px;
         margin-bottom: 15px;
-        color: #e0e0e0;
+        color: #534a6a;
         transition: all 0.3s ease;
     }
 
@@ -179,7 +180,7 @@ const AboutUs = () => {
 
     .team-name {
         font-weight: 600;
-        color: #fff;
+        color: #534a6a;
         position: relative;
         display: inline-block;
     }
@@ -193,12 +194,17 @@ const AboutUs = () => {
         height: 2px;
         background: currentColor;
         transform: scaleX(0);
-        transition: transform 0.3s ease;
+        transition: all 0.3s ease;
+        color: #9d7aff
     }
 
     .team-member:hover .team-name:after {
         transform: scaleX(1);
     }
+
+    .team-member:hover .team-name {
+    color: #9d7aff; /* Ensure text color changes on hover */
+}
 
     /* Responsive adjustments */
     @media (max-width: 768px) {

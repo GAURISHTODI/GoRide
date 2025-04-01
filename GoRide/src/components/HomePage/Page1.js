@@ -1,13 +1,14 @@
 // src/components/Page1.js
 import React from 'react';
+import "./Page1.css"
 
 const Page1 = () => {
     return (
         <div className="container mx-auto px-4 py-20">
             <div className="flex flex-col md:flex-row">
                 <div className="flex-1 mb-8 md:mb-0 md:mr-8">
-                    <h1 className="text-3xl font-bold mb-4 text-blue-600 Arial, sans-serif">Welcome to Our GoRide Service</h1>
-                    <p className="text-lg mb-4  Arial, sans-serif">
+                    <h1 className="text-3xl font-bold mb-4 text-blue-600 Arial, sans-serif tc">Welcome to Our GoRide Service</h1>
+                    <p className="text-lg mb-4  Arial, sans-serif tc3">
                     GoRide services offer numerous benefits, including cost savings, environmental advantages, and enhanced convenience. By utilizing GoRide programs, individuals can contribute to reducing traffic congestion and emissions while enjoying a more connected community.Our platform connects you with reliable drivers in your area, ensuring a safe and enjoyable ride every time. Whether you're commuting to work, heading to the airport, or going out for a night on the town, we've got you covered.
                     </p>
                 </div>

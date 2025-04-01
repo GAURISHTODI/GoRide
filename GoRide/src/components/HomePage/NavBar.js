@@ -42,13 +42,13 @@ const UserNavbar = () => {
                 <div className="collapse navbar-collapse" id="userNavbarNav">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link className="nav-link text-white purp" to="/">Home</Link>
+                            <Link className="nav-link tc2 purp" to="/">Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link text-white purp" to="/about">About</Link>
+                            <Link className="nav-link tc2 purp" to="/about">About</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link text-white purp" to="/contact">Contact Us</Link>
+                            <Link className="nav-link tc2 purp" to="/contact">Contact Us</Link>
                         </li>
                     </ul>
 

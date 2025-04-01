@@ -1,5 +1,7 @@
 import React from 'react';
 import UserNavbar from './UserNavbar';
+import "./AboutUser.css"
+
 
 const AboutUser = () => {
     return (
@@ -9,7 +11,7 @@ const AboutUser = () => {
                 <div className="container shadow-lg p-4"> {/* Main container with shadow */}
                     {/* Section Title */}
                     <h2 className="section-title text-3xl font-bold mb-6 text-center">
-                        <i className="fab fa-users mr-2"></i>About Us
+                        About Us
                     </h2>
                 </div>
 
@@ -42,40 +44,28 @@ const AboutUser = () => {
                         <i className="fas fa-users mr-2"></i>Meet Our Team
                     </h3>
                     <div className="row mb-4">
-                        <div className="col-md-4 col-sm-6 mb-4">
+                    <div className="col-md-3 col-sm-6 mb-4">
                             <div className="team-member text-center shadow-md p-4 bg-blue-400 text-white"> {/* Team member container with light blue background */}
                                 <i className="fas fa-user team-image"></i> {/* Male icon */}
-                                <h4 className="team-name">Sarthak</h4>
+                                <h4 className="team-name">Anisha</h4>
                             </div>
                         </div>
-                        <div className="col-md-4 col-sm-6 mb-4">
+                        <div className="col-md-3 col-sm-6 mb-4">
                             <div className="team-member text-center shadow-md p-4 bg-blue-400 text-white"> {/* Team member container with light blue background */}
                                 <i className="fas fa-user team-image"></i> {/* Male icon */}
-                                <h4 className="team-name">Pratik</h4>
+                                <h4 className="team-name">Nilay</h4>
                             </div>
                         </div>
-                        <div className="col-md-4 col-sm-6 mb-4">
+                        <div className="col-md-3 col-sm-6 mb-4">
                             <div className="team-member text-center shadow-md p-4 bg-blue-400 text-white"> {/* Team member container with light blue background */}
                                 <i className="fas fa-user team-image"></i> {/* Female icon */}
-                                <h4 className="team-name">Aishwarya</h4>
+                                <h4 className="team-name">Gaurish</h4>
                             </div>
                         </div>
-                        <div className="col-md-4 col-sm-6 mb-4">
+                        <div className="col-md-3 col-sm-6 mb-4">
                             <div className="team-member text-center shadow-md p-4 bg-blue-400 text-white"> {/* Team member container with light blue background */}
                                 <i className="fas fa-user team-image"></i> {/* Male icon */}
-                                <h4 className="team-name">Jayprakash</h4>
-                            </div>
-                        </div>
-                        <div className="col-md-4 col-sm-6 mb-4">
-                            <div className="team-member text-center shadow-md p-4 bg-blue-400 text-white"> {/* Team member container with light blue background */}
-                                <i className="fas fa-user team-image"></i> {/* Male icon */}
-                                <h4 className="team-name">Rohit</h4>
-                            </div>
-                        </div>
-                        <div className="col-md-4 col-sm-6 mb-4">
-                            <div className="team-member text-center shadow-md p-4 bg-blue-400 text-white"> {/* Team member container with light blue background */}
-                                <i className="fas fa-user team-image"></i> {/* Male icon */}
-                                <h4 className="team-name">Ayush</h4>
+                                <h4 className="team-name">Akshat</h4>
                             </div>
                         </div>
                     </div>
@@ -94,53 +84,142 @@ const AboutUser = () => {
 
             {/* Add the styles below in the style tag */}
             <style jsx>{`
-                /* Custom styles for AboutUs component */
                 .about-us {
-                    background-color: #f9f9f9; /* Light background for a clean look */
-                    color: #333; /* Default text color */
-                }
+        background-color: #121212; /* Deep dark background */
+        color: #e0e0e0; /* Light gray text */
+        min-height: 100vh;
+    }
 
-                .section-title {
-                    color: #1a73e8; /* Accent color for headings */
-                }
+    .container {
+        background-color: #1e1e1e; /* Slightly lighter dark container */
+        border-radius: 12px;
+        border: 1px solid #2e2e2e; /* Subtle border */
+        transition: all 0.3s ease;
+    }
 
-                .sub-title {
-                    color: #007bff; /* Slightly different shade of blue for subtitles */
-                }
+    .container:hover {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
 
-                .section-text {
-                    font-size: 1.1rem;
-                    line-height: 1.6;
-                    color: #555; /* Slightly muted text color for readability */
-                }
+    .section-title {
+        color: #9d7aff; /* Vibrant blue for main titles */
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
 
-                .team-member {
-                    border-radius: 8px;
-                    padding: 20px;
-                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increased shadow for depth */
-                    transition: transform 0.3s ease-in-out;
-                }
+    .sub-title {
+        color: #9d7aff; /* Soft purple for subtitles */
+        position: relative;
+        padding-left: 15px;
+    }
 
-                .team-member:hover {
-                    transform: translateY(-10px); /* Hover effect for interactivity */
-                }
+    .sub-title:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 60%;
+        width: 4px;
+        background: linear-gradient(to bottom, #9d7aff, #6ac7ff);
+        border-radius: 2px;
+    }
 
-                .team-image {
-                    font-size: 80px; /* Adjust icon size */
-                    margin-bottom: 10px;
-                }
+    .section-text {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: #b0b0b0; /* Medium gray for readability */
+    }
 
-                .team-name {
-                    font-weight: bold;
-                    color: #fff; /* White text for better contrast */
-                }
+    .team-member {
+        border-radius: 12px;
+        padding: 25px 20px;
+        background: linear-gradient(145deg, #252525, #1e1e1e);
+        box-shadow: 5px 5px 15px #0a0a0a, 
+                   -5px -5px 15px #2a2a2a;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: none;
+        overflow: hidden;
+        position: relative;
+    }
 
-                /* Make sure the layout is responsive */
-                @media (max-width: 768px) {
-                    .team-member {
-                        width: 100%;
-                    }
-                }
+    .team-member:hover {
+        transform: translateY(-10px) scale(1.03);
+        box-shadow: 8px 8px 25px #0a0a0a, 
+                   -8px -8px 25px #2a2a2a;
+    }
+
+    .team-member:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(to right, #9d7aff, #9d7aff);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s ease;
+    }
+
+    .team-member:hover:after {
+        transform: scaleX(1);
+    }
+
+    .team-image {
+        font-size: 70px;
+        margin-bottom: 15px;
+        color: #534a6a;
+        transition: all 0.3s ease;
+    }
+
+    .team-member:hover .team-image {
+        transform: scale(1.1);
+        color: #9d7aff;
+    }
+
+    .team-name {
+        font-weight: 600;
+        color: #534a6a;
+        position: relative;
+        display: inline-block;
+    }
+
+    .team-name:after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: currentColor;
+        transform: scaleX(0);
+        transition: all 0.3s ease;
+        color: #9d7aff
+    }
+
+    .team-member:hover .team-name:after {
+        transform: scaleX(1);
+    }
+
+    .team-member:hover .team-name {
+    color: #9d7aff; /* Ensure text color changes on hover */
+}
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .team-member {
+            width: 100%;
+            margin-bottom: 25px;
+        }
+        
+        .container {
+            padding: 20px 15px;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+        }
+    }
             `}</style>
         </>
     );
