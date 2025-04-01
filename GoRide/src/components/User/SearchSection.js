@@ -5,55 +5,16 @@ import UserNavbar from './UserNavbar';
 import PaymentComponent from '../Payments/PaymentComponent';
 import MapComponent from '../User/MapComponent';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import { db } from '../firebase'; // Adjust the path to your Firebase config
+import { db } from '../firebase';
+import { Timestamp } from "firebase/firestore";
+const sampleTrips = []
+// Inputs
+const startLocation = "YourStartLocation";
+const endLocation = "YourEndLocation";
+const inputDate = 15; // Day
+const inputMonth = 4; // April (0-based in JavaScript, but Firestore uses 1-based)
 
-
-// Sample trip data for testing
-const sampleTrips = [
-    {
-      id: "trip1",
-      username: "Rahul Sharma",
-      phoneNumber: "+91 9876543210",
-      userId: "user123",
-      from: "Kota, Rajasthan, India",
-      to: "Delhi, India",
-      date: "2025-04-05",
-      time: "18:00",
-      seats: 3,
-      price: 850,
-      vehicleType: "Sedan",
-      additionalInfo: "Traveling with light luggage only"
-    },
-    {
-      id: "trip2",
-      username: "Priya Patel",
-      phoneNumber: "+91 8765432109",
-      userId: "user456",
-      from: "Kota",
-      to: "Delhi",
-      date: "2025-04-05", 
-      time: "18:00",
-      seats: 2,
-      price: 900,
-      vehicleType: "SUV",
-      additionalInfo: "AC vehicle, space for medium luggage"
-    },
-    {
-      id: "trip3",
-      username: "Amit Kumar",
-      phoneNumber: "+91 7654321098",
-      userId: "user789",
-      from: "Kota",
-      to: "Delhi",
-      date: "2025-04-05",
-      time: "18:30",
-      seats: 1,
-      price: 800,
-      vehicleType: "Hatchback",
-      additionalInfo: "Non-smoking vehicle"
-    }
-  ]
-
+// Query Firestore
 const SearchSection = ({ setSearchQuery, setDistance }) => {
     const navigate = useNavigate();
     const fromInputRef = useRef(null);
@@ -84,7 +45,7 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
         const today = new Date();
         const formattedDate = today.toISOString().split('T')[0];
         setCurrentDate(formattedDate);
-        
+
         const uid = localStorage.getItem("id");
         if (uid) {
             setUserId(uid);
@@ -106,7 +67,7 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
         const toAutocomplete = new window.google.maps.places.Autocomplete(toInputRef.current, {
             types: ['geocode'],
         });
-        
+
         fromAutocomplete.addListener('place_changed', () => {
             const place = fromAutocomplete.getPlace();
             if (place && place.geometry) {
@@ -120,7 +81,7 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
                 setTo(place.formatted_address);
             }
         });
-       
+
         return () => {
             if (fromInputRef.current) {
                 window.google.maps.event.clearInstanceListeners(fromInputRef.current);
@@ -138,7 +99,7 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
                 reject('Google Maps API not loaded');
                 return;
             }
-            
+
             const service = new window.google.maps.DistanceMatrixService();
             service.getDistanceMatrix(
                 {
@@ -153,12 +114,12 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
                             const distanceText = response.rows[0].elements[0].distance.text;
                             const distanceValue = response.rows[0].elements[0].distance.value; // in meters
                             const durationText = response.rows[0].elements[0].duration.text;
-                            
+
                             // If setDistance prop exists, pass the value
                             if (setDistance) {
                                 setDistance(distanceValue / 1000); // Convert to kilometers
                             }
-                            
+
                             resolve({
                                 distance: distanceText,
                                 duration: durationText,
@@ -174,94 +135,75 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
             );
         });
     };
-
-    const fetchRides = async () => {
+    const fetchAvailableTrips = async () => {
         try {
-            const response = await axios.get('http://rideshare.ap-south-1.elasticbeanstalk.com/api/rides/filter', {
-                params: { from, to, date }
+            console.log(date.toString());
+            const [year, month, day] = date.split("-");
+            console.log(year + " " + month + " " + day);
+            const startOfDay = Timestamp.fromDate(new Date(parseInt(year), parseInt(month), parseInt(day), 0, 0, 0));
+            const endOfDay = Timestamp.fromDate(new Date(parseInt(year), parseInt(month), parseInt(day), 23, 59, 59));
+            const normalizedFrom = from.toLowerCase().trim();
+            console.log(normalizedFrom);
+            const normalizedTo = to.toLowerCase().trim();
+            console.log(normalizedTo);
+            console.log(startOfDay.toString() + " " + endOfDay.toString());
+            const q = query(
+                collection(db, "requests"),
+                where("date", "==", date.toString()),
+                where("dest","==",normalizedTo),
+                where("start","==",normalizedFrom)
+            );
+            const querySnapshot = await getDocs(q);
+            const filteredTrips = []
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                console.log(data.name);
+                filteredTrips.push(doc.data());
             });
-            setRides(response.data);
+            console.log(filteredTrips.length == 0);
+            setAvailableTrips(filteredTrips);
         } catch (error) {
-            console.error('Error fetching rides:', error);
+            console.error("Error fetching trips from Firebase:", error);
         }
     };
 
-    // New function to fetch available trips from Firebase
+    // For testing: Use sample data instead of Firebase query
     // const fetchAvailableTrips = async () => {
     //     try {
-    //         // Normalize the inputs for better matching
-    //         const normalizedFrom = from.toLowerCase().trim();
-    //         const normalizedTo = to.toLowerCase().trim();
-            
-    //         // Query Firestore for trips that match the criteria
-    //         const tripsRef = collection(db, "trips");
-            
-    //         // You might need to adjust the query based on your Firebase structure
-    //         const q = query(
-    //             tripsRef,
-    //             where("from", "==", normalizedFrom),
-    //             where("to", "==", normalizedTo),
-    //             where("date", "==", date),
-    //             where("time", "==", time)
-    //         );
-            
-    //         const querySnapshot = await getDocs(q);
-            
-    //         const trips = [];
-    //         querySnapshot.forEach((doc) => {
-    //             // Filter out the user's own trips
-    //             const tripData = doc.data();
-    //             if (tripData.userId !== userId) {
-    //                 trips.push({
-    //                     id: doc.id,
-    //                     ...tripData
-    //                 });
-    //             }
-    //         });
-            
-    //         setAvailableTrips(trips);
-    //     } catch (error) {
-    //         console.error("Error fetching trips from Firebase:", error);
-    //     }
-    // };
+    //       // Simulate API delay
+    //       await new Promise(resolve => setTimeout(resolve, 1000));
 
-    // For testing: Use sample data instead of Firebase query
-const fetchAvailableTrips = async () => {
-    try {
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Filter the sample data based on search criteria
-      const filteredTrips = sampleTrips.filter(trip => 
-        trip.from.toLowerCase() === from.toLowerCase() &&
-        trip.to.toLowerCase() === to.toLowerCase() &&
-        trip.date === date &&
-        // Optional: Check if time is close to searched time (within 30 min)
-        Math.abs(parseInt(trip.time.split(':')[0]) - parseInt(time.split(':')[0])) <= 1
-      );
-      
-      setAvailableTrips(filteredTrips);
-    } catch (error) {
-      console.error("Error fetching sample trips:", error);
-      setAvailableTrips([]);
-    }
-  };
+    //       // Filter the sample data based on search criteria
+    //       const filteredTrips = sampleTrips.filter(trip => 
+    //         trip.from.toLowerCase() === from.toLowerCase() &&
+    //         trip.to.toLowerCase() === to.toLowerCase() &&
+    //         trip.date === date &&
+    //         // Optional: Check if time is close to searched time (within 30 min)
+    //         Math.abs(parseInt(trip.time.split(':')[0]) - parseInt(time.split(':')[0])) <= 1
+    //       );
+
+    //       setAvailableTrips(filteredTrips);
+    //     } catch (error) {
+    //       console.error("Error fetching sample trips:", error);
+    //       setAvailableTrips([]);
+    //     }
+    //   };
 
     const handleJoinTrip = async (tripId) => {
         if (!isUserLoggedIn) {
             navigate('/login');
             return;
         }
-        
+
         setIsJoining(true);
         try {
             // Here you would implement the logic to join the trip
             // This could involve updating the trip document in Firebase
             // For example, adding the user's ID to an array of participants
-            
+
             // For demonstration purposes, we'll just show an alert
             alert(`Successfully joined trip ${tripId}`);
-            
+
             // Refresh the list of available trips
             await fetchAvailableTrips();
         } catch (error) {
@@ -274,38 +216,37 @@ const fetchAvailableTrips = async () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (!isUserLoggedIn) {
             navigate('/login');
             return;
         }
-        
+
         setIsLoading(true);
         setDistanceInfo(null); // Reset distance info on new search
-    
+
         try {
             if (!from || !to) {
                 throw new Error('Please enter both starting and destination locations');
             }
-    
+
             const distanceData = await getDistance(from, to);
             setDistanceInfo(distanceData);
-            
+
             // Update search query state if the prop exists
             if (setSearchQuery) {
                 setSearchQuery({ from, to, date, time });
             }
-    
+
             // Fetch available rides from the API
-            await fetchRides();
-            
+            //await fetchRides();
+
             // Fetch available trips from Firebase
             await fetchAvailableTrips();
-            
+
             setIsSubmitted(true);
         } catch (error) {
             console.error('Error:', error.message || 'Error processing request');
-            // You might want to show an error message to the user here
         } finally {
             setIsLoading(false);
         }
@@ -315,13 +256,13 @@ const fetchAvailableTrips = async () => {
         setSelectedRide(ride);
     };
 
-    const handlePaymentSuccess = (rideId) => {
-        setRideBookings(prevBookings => ({
-            ...prevBookings,
-            [rideId]: (prevBookings[rideId] || 0) + 1
-        }));
-        fetchRides();
-    };
+    // const handlePaymentSuccess = (rideId) => {
+    //     setRideBookings(prevBookings => ({
+    //         ...prevBookings,
+    //         [rideId]: (prevBookings[rideId] || 0) + 1
+    //     }));
+    //     fetchRides();
+    // };
 
     return (
         <>
@@ -389,7 +330,6 @@ const fetchAvailableTrips = async () => {
                             </button>
                         </form>
 
-                        {/* Display distance info */}
                         {distanceInfo && (
                             <div className="mt-4 p-3 bg-blue-50 rounded-lg">
                                 <h3 className="text-lg font-semibold mb-2">Trip Details</h3>
@@ -397,8 +337,6 @@ const fetchAvailableTrips = async () => {
                                 <p className="text-gray-700">Estimated Travel Time: {distanceInfo.duration}</p>
                             </div>
                         )}
-
-                        {/* Map Component */}
                         {isSubmitted && from && to && (
                             <div className="mt-10">
                                 <MapComponent from={from} to={to} setDistance={setDistanceInfo} />
@@ -409,43 +347,55 @@ const fetchAvailableTrips = async () => {
                         {isSubmitted && (
                             <div className="mt-10">
                                 <h3 className="text-xl font-bold mb-4">Available Trips</h3>
-                                
+
                                 {availableTrips.length > 0 ? (
                                     <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                                         {availableTrips.map((trip) => (
-                                            <div key={trip.id} className="bg-white rounded-lg shadow-md p-4 border border-gray-200 hover:shadow-lg transition-shadow">
+                                            <div className="bg-white rounded-lg shadow-md p-4 border border-gray-200 hover:shadow-lg transition-shadow">
                                                 <div className="mb-4">
-                                                    <h4 className="text-lg font-semibold">{trip.username || 'Anonymous User'}</h4>
+                                                    <h4 className="text-lg font-semibold">{trip.name || 'Anonymous User'}</h4>
                                                     <div className="flex items-center text-gray-600 mt-1">
                                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                                         </svg>
-                                                        <span>{trip.phoneNumber || 'Phone number not available'}</span>
+                                                        <span>{trip.phone || 'Phone number not available'}</span>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div className="space-y-2 text-sm">
                                                     <div className="flex items-center">
                                                         <span className="w-24 font-medium">From:</span>
-                                                        <span className="text-gray-700">{trip.from}</span>
+                                                        <span className="text-gray-700">{trip.start}</span>
                                                     </div>
                                                     <div className="flex items-center">
                                                         <span className="w-24 font-medium">To:</span>
-                                                        <span className="text-gray-700">{trip.to}</span>
+                                                        <span className="text-gray-700">{trip.dest}</span>
+                                                    </div>
+                                                    <div className="flex items-center">
+                                                        <span className="w-24 font-medium">Max Capacity</span>
+                                                        <span className="text-gray-700">{trip.max_person}</span>
+                                                    </div>
+                                                    <div className="flex items-center">
+                                                        <span className="w-24 font-medium">Current Capacity</span>
+                                                        <span className="text-gray-700">{trip.curr_person}</span>
                                                     </div>
                                                     <div className="flex items-center">
                                                         <span className="w-24 font-medium">Date:</span>
-                                                        <span className="text-gray-700">{trip.date}</span>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <span className="w-24 font-medium">Time:</span>
-                                                        <span className="text-gray-700">{trip.time}</span>
+                                                        <span className="text-gray-700">{(trip.time).toDate().toLocaleString("en-US", {
+                                                            year: "numeric",
+                                                            month: "2-digit",
+                                                            day: "2-digit",
+                                                            hour: "2-digit",
+                                                            minute: "2-digit",
+                                                            second: "2-digit",
+                                                            hour12: true 
+                                                        })}
+                                                        </span>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <button
                                                     className="mt-4 w-full bg-green-500 text-white font-medium py-2 px-4 rounded-md hover:bg-green-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
-                                                    onClick={() => handleJoinTrip(trip.id)}
                                                     disabled={isJoining}
                                                 >
                                                     {isJoining ? 'Joining...' : 'Join'}
@@ -461,7 +411,6 @@ const fetchAvailableTrips = async () => {
                                 )}
                             </div>
                         )}
-
                         {/* Display filtered rides */}
                         {rides.length > 0 && (
                             <div className="mt-4">
@@ -491,15 +440,12 @@ const fetchAvailableTrips = async () => {
                             </div>
                         )}
                     </div>
-                    
-                    {/* Payment Component */}
                     {selectedRide && (
                         <div className="mt-6">
                             <PaymentComponent
                                 amount={selectedRide.price}
                                 rideId={selectedRide.id}
                                 userId={userId}
-                                onPaymentSuccess={() => handlePaymentSuccess(selectedRide.id)}
                             />
                         </div>
                     )}
