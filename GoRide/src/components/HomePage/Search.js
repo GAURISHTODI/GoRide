@@ -140,84 +140,89 @@ const Search = ({ setDistance }) => {
     return (
         <>
         <section id="Search" className="py-10">
-            <div className="container mx-auto px-4">
-                <div className="bg-white shadow-md rounded-lg p-6">
-                    <h2 className="text-2xl font-bold mb-4">Search for a ride</h2>
-                    <form className="space-y-4" onSubmit={handleSubmit}>
-                        <div className="flex space-x-4">
-                            <div className="flex-1">
-                                <label className="block text-gray-700" htmlFor="from">From</label>
-                                <input
-                                    ref={fromInputRef}
-                                    className="w-full border-gray-300 rounded-lg p-2"
-                                    id="from"
-                                    placeholder="City or address"
-                                    type="text"
-                                    value={from}
-                                    onChange={(e) => setFrom(e.target.value)}
-                                />
+                <div className="container mx-auto px-4">
+                    <div className="bgd2 shadow-md rounded-lg p-6">
+                        <h2 className="text-2xl font-bold mb-4 tc">Search for a ride</h2>
+                        <form className="space-y-4" onSubmit={handleSubmit}>
+                            <div className="flex space-x-4">
+                                <div className="flex-1">
+                                    <label className="block tc2" htmlFor="from">From</label>
+                                    <input
+                                        ref={fromInputRef}
+                                        className="w-full border-gray-300 rounded-lg p-2 fc"
+                                        id="from"
+                                        placeholder="City or address"
+                                        type="text"
+                                    />
+                                </div>
+                                <div className="flex-1">
+                                    <label className="block tc2" htmlFor="to">To</label>
+                                    <input
+                                        ref={toInputRef}
+                                        className="w-full border-gray-300 rounded-lg p-2 fc"
+                                        id="to"
+                                        placeholder="City or address"
+                                        type="text"
+                                    />
+                                </div>
                             </div>
-                            <div className="flex-1">
-                                <label className="block text-gray-700" htmlFor="to">To</label>
-                                <input
-                                    ref={toInputRef}
-                                    className="w-full border-gray-300 rounded-lg p-2"
-                                    id="to"
-                                    placeholder="City or address"
-                                    type="text"
-                                    value={to}
-                                    onChange={(e) => setTo(e.target.value)}
-                                />
+                            <div className="flex space-x-4">
+                                <div className="flex-1">
+                                    <label className="block tc2" htmlFor="date">Date</label>
+                                    <input
+                                        className="w-full border-gray-300 rounded-lg p-2 fc"
+                                        id="date"
+                                        type="date"
+                                        min={new Date().toISOString().split("T")[0]}  // Set min to the current date
+                                    />
+                                </div>
+                                <div className="flex-1">
+                                    <label className="block tc2" htmlFor="time">Time</label>
+                                    <input
+                                        className="w-full border-gray-300 rounded-lg p-2 fc"
+                                        id="time"
+                                        type="time"
+                                    />
+                                </div>
                             </div>
-                        </div>
-                        <div className="flex space-x-4">
-                            <div className="flex-1">
-                                <label className="block text-gray-700" htmlFor="date">Date</label>
-                                <input
-                                    className="w-full border-gray-300 rounded-lg p-2"
-                                    id="date"
-                                    type="date"
-                                    min={new Date().toISOString().split("T")[0]}  // Set min to the current date
-                                />
-                            </div>
-                            <div className="flex-1">
-                                <label className="block text-gray-700" htmlFor="time">Time</label>
-                                <input
-                                    className="w-full border-gray-300 rounded-lg p-2"
-                                    id="time"
-                                    type="time"
-                                />
-                            </div>
-                        </div>
-                        <button
-                            type="submit"
-                            className="w-full bg-blue-500 text-white rounded-lg p-2 hover:bg-blue-600"
-                            disabled={isLoading}
-                        >
-                            {isLoading ? 'Calculating...' : 'Search'}
-                        </button>
-                    </form>
+                            <button
+                                type="submit"
+                                className="w-full text-black rounded-lg p-2"
+                            >
+                                <Link
+                                    to="/login"
+                                    className="w-full tcb rounded-lg p-2 text-center block"
+                                >
+                                    Search
+                                </Link>
 
-                    {/* Display distance info */}
-                    {distanceInfo && (
-                        <div className="mt-4 p-3 bg-blue-50 rounded-lg">
-                            <h3 className="text-lg font-semibold mb-2">Trip Details</h3>
-                            <p className="text-gray-700">Distance: {distanceInfo.distance}</p>
-                            <p className="text-gray-700">Estimated Travel Time: {distanceInfo.duration}</p>
-                        </div>
-                    )}
+                            </button>
+                        </form>
 
-                    {/* Map Component */}
-                    {isSubmitted && from && to && (
-                        <div className="mt-10">
-                            <MapComponent from={from} to={to} setDistance={setDistanceInfo} />
-                        </div>
-                    )}
+                        {/* Map Component */}
+                        {isSubmitted && from && to && (
+                            <div className="mt-10">
+                                <MapComponent from={from} to={to} setDistance={setDistanceInfo} />
+                            </div>
+                        )}
+
+                        {/* Display distance and time */}
+                        {distanceInfo && (
+                            <div className="mt-4 text-lg text-gray-700">
+                                <p>Distance: {distanceInfo.distance}</p>
+                                <p>Duration: {distanceInfo.duration}</p>
+                            </div>
+                        )}
                     </div>
                 </div>
             </section>
+
         </>
     );
 };
 
 export default Search;
+
+
+
+
