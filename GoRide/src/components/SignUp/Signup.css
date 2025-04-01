@@ -25,3 +25,31 @@
 .login-link {
     color: white; /* White link */
 }
+
+.bgcs{
+    background-color: #121212,
+}
+
+.bgcs2{
+    background-color: #1f1f1f;
+}
+
+.bgcs3{
+    background-color: #9e7aff;
+}
+
+.tcs{
+    color: #9e7aff;
+}
+.tcs2{
+    color: #534a6a;
+}
+
+.pbs:hover{
+    border: 1px solid #9d7aff;
+    color: #121212;
+    background-color: #9d7aff;
+    box-shadow: 0 6px 20px #9d7aff5b;
+    
+
+}

@@ -24,3 +24,45 @@
 .signup-link {
     color: white; /* White link */
 }
+
+.bgcl{
+    background-color: #121212;
+}
+
+.bgc2l{
+    background-color: #1f1f1f;
+}
+
+.bgc3l{
+    background-color: #9e7aff;
+}
+
+
+.tcl{
+    color: #9e7aff;
+}
+
+.tc3l{
+    color: #534a6a;
+}
+
+.fcl2{
+    background-color: #262626;
+    color: #9da4b0;
+
+}
+
+.pbl:hover{
+    border: 1px solid #9d7aff;
+    color: #121212;
+    background-color: #9d7aff;
+    box-shadow: 0 6px 20px #9d7aff5b;
+}
+
+input{
+    background-color: #1f1f1f,
+}
+
+.h100{
+    height: 100vh;
+}

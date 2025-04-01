@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import "./login.css"
+// import { useState } from "react";
+
 
 import { Link, data, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { auth,db } from '../firebase';
+import { auth, db } from '../firebase';
 import { doc, getDoc } from "firebase/firestore";
-async function handleLogin(navigate, setModalMessage, setModalVisible,email,password) {
+async function handleLogin(navigate, setModalMessage, setModalVisible, email, password) {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const id = userCredential.user.uid;
@@ -37,6 +40,9 @@ const Login = () => {
     const [passwordError, setPasswordError] = useState('');
     const [modalMessage, setModalMessage] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
+    const [isFocused2, setIsFocused2] = useState(false);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -53,7 +59,7 @@ const Login = () => {
             setPasswordError('');
         }
         try {
-            handleLogin(navigate,setModalMessage ,setModalVisible,email,password);
+            handleLogin(navigate, setModalMessage, setModalVisible, email, password);
         } catch (error) {
             console.error('Error during login:', error);
             setModalMessage('An error occurred. Please try again later.');
@@ -67,17 +73,17 @@ const Login = () => {
         setModalVisible(false);
     };
     return (
-        <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8 bgcl">
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                <div className=" py-8 px-4 shadow sm:rounded-lg sm:px-10 bgc2l">
                     <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                        <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">
+                        <h2 className="text-2xl font-bold tcl mb-6 text-center">
                             Welcome Back!
                         </h2>
                     </div>
                     <form className="space-y-6" onSubmit={handleSubmit}>
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                            <label htmlFor="email" className="block text-sm font-medium tc3l">
                                 Email address
                             </label>
                             <div className="mt-1">
@@ -88,7 +94,17 @@ const Login = () => {
                                     required
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                    onFocus={() => setIsFocused(true)}
+                                    onBlur={() => setIsFocused(false)}
+                                    style={{
+                                        backgroundColor: "#1f1f1f",
+                                        color: `${isFocused ? "#9e7aff" : "#8164d0"}`,
+                                        border: `2px solid ${isFocused ? "#9e7aff" : "#534a6a"}`,
+                                        padding: "8px",
+                                        borderRadius: "5px",
+                                        width: "100%",
+                                        outline: "none", // Removes default browser outline
+                                    }}
                                     placeholder="Enter your email address"
                                 />
                                 {emailError && <p className="text-red-500 text-xs">{emailError}</p>}
@@ -96,7 +112,7 @@ const Login = () => {
                         </div>
 
                         <div>
-                            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                            <label htmlFor="password" className="block text-sm font-medium tc3l">
                                 Password
                             </label>
                             <div className="mt-1">
@@ -107,8 +123,18 @@ const Login = () => {
                                     required
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                     placeholder="Enter your password"
+                                    onFocus={() => setIsFocused2(true)}
+                                    onBlur={() => setIsFocused2(false)}
+                                    style={{
+                                        backgroundColor: "#1f1f1f",
+                                        color: `${isFocused ? "#9e7aff" : "#8164d0"}`,
+                                        border: `2px solid ${isFocused2 ? "#9e7aff" : "#534a6a"}`,
+                                        padding: "8px",
+                                        borderRadius: "5px",
+                                        width: "100%",
+                                        outline: "none", // Removes default browser outline
+                                    }}
                                 />
                                 {passwordError && <p className="text-red-500 text-xs">{passwordError}</p>}
                             </div>
@@ -134,7 +160,7 @@ const Login = () => {
                         <div>
                             <button
                                 type="submit"
-                                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md bgc3l bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 pbl"
                             >
                                 Sign in
                             </button>
@@ -146,8 +172,8 @@ const Login = () => {
                                 <div className="w-full border-t border-gray-300"></div>
                             </div>
                             <div className="relative flex justify-center text-sm">
-                                <span className="px-2 bg-gray-100 text-gray-500">
-                                    New to us ? 
+                                <span className="px-2 bg-gray-100 text-gray-500 bgc2l tcl">
+                                    New to us ?
                                 </span>
                             </div>
                         </div>
@@ -157,7 +183,7 @@ const Login = () => {
 
                                 <button
                                     onClick={handleCreate}
-                                    className="w-full flex items-center justify-center px-8 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-blue-600 bg-white hover:bg-gray-50 mt-4"
+                                    className="w-full flex items-center justify-center px-8 py-3 border  rounded-md  text-sm font-medium bgc3l mt-4 pbl"
                                 >
                                     Create New Account
                                 </button>
