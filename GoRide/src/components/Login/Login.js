@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import "./login.css"
-// import { useState } from "react";
-
-
 import { Link, data, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from '../firebase';
@@ -141,20 +138,7 @@ const Login = () => {
                         </div>
 
                         <div className="flex items-center justify-between">
-                            {/* <div className="flex items-center">
-                                <input
-                                    id="remember_me"
-                                    name="remember_me"
-                                    type="checkbox"
-                                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                                />
-                            </div> */}
-
-                            {/* <div className="text-sm">
-                                <Link to="/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">
-                                    Forgot your password?
-                                </Link>
-                            </div> */}
+                           
                         </div>
 
                         <div>

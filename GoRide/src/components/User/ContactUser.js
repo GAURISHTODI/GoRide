@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import axios from 'axios'; // Import axios
 import UserNavbar from './UserNavbar';
 import "./ContactUser.css"
-
+import { auth, provider, db } from '../firebase'
+import { collection, addDoc, doc, setDoc } from "firebase/firestore";
+import { FaUser, FaEnvelope, FaLock, FaCar, FaIdCard, FaCheckCircle } from 'react-icons/fa';
 const ContactUser = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState('');
+    const [modalMessage, setModalMessage] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -30,25 +34,38 @@ const ContactUser = () => {
 
         try {
             // Make the API call
-            const response = await axios.post('https://localhost:44345/api/Contact/submit', contactData);
-            
-            if (response.status === 200) {
-                // Success message
-                setSuccess(true);
-                
-                // Reset form fields
-                setName('');
-                setEmail('');
-                setMessage('');
-            }
+            const userRef = doc(db, "messages",email.split("@")[0]); //Create & Update operation
+            await setDoc(userRef, {
+                name: name,
+                email: email,
+                message: message
+            });
+            setModalMessage("Your message was sent to the admin");
+            setModalVisible(true);
         } catch (error) {
             setError('There was an issue submitting your message. Please try again later.');
             console.error('Error submitting contact form:', error);
         }
     };
-
+    const closeModal = () => {
+        setModalVisible(false);
+    };
     return (
         <>
+         {modalVisible && (
+                <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
+                    <div className="bg-white p-6 rounded shadow-lg text-center">
+                        <FaCheckCircle className="text-green-600 mx-auto mb-4" size={50} />
+                        <h1 className="text-xl font-bold text-green-600">{modalMessage}</h1>
+                        <button
+                            onClick={closeModal}
+                            className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                        >
+                            Done
+                        </button>
+                    </div>
+                </div>
+            )}
             <UserNavbar />
             <section className="text-light dark:bg-slate-800" id="contact">
                 <div className="bgd2 text-light mx-auto max-w-7xl m-5 px-4 py-16 sm:px-6 lg:px-8 lg:py-20 ">

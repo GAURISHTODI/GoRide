@@ -8,14 +8,6 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
 import { Timestamp } from "firebase/firestore";
 import "./SearchSection.css"
-
-const sampleTrips = []
-// Inputs
-const startLocation = "YourStartLocation";
-const endLocation = "YourEndLocation";
-const inputDate = 15; // Day
-const inputMonth = 4; // April (0-based in JavaScript, but Firestore uses 1-based)
-
 // Query Firestore
 const SearchSection = ({ setSearchQuery, setDistance }) => {
     const navigate = useNavigate();
@@ -165,37 +157,18 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
             const filteredTrips = []
             querySnapshot.forEach((doc) => {
                 const data = doc.data();
+                console.log(data);
                 console.log(data.name);
                 filteredTrips.push(doc.data());
             });
-            console.log(filteredTrips.length == 0);
+            console.log(filteredTrips.length);
             setAvailableTrips(filteredTrips);
         } catch (error) {
             console.error("Error fetching trips from Firebase:", error);
         }
     };
 
-    // For testing: Use sample data instead of Firebase query
-    // const fetchAvailableTrips = async () => {
-    //     try {
-    //       // Simulate API delay
-    //       await new Promise(resolve => setTimeout(resolve, 1000));
 
-    //       // Filter the sample data based on search criteria
-    //       const filteredTrips = sampleTrips.filter(trip => 
-    //         trip.from.toLowerCase() === from.toLowerCase() &&
-    //         trip.to.toLowerCase() === to.toLowerCase() &&
-    //         trip.date === date &&
-    //         // Optional: Check if time is close to searched time (within 30 min)
-    //         Math.abs(parseInt(trip.time.split(':')[0]) - parseInt(time.split(':')[0])) <= 1
-    //       );
-
-    //       setAvailableTrips(filteredTrips);
-    //     } catch (error) {
-    //       console.error("Error fetching sample trips:", error);
-    //       setAvailableTrips([]);
-    //     }
-    //   };
 
     const handleJoinTrip = async (tripId) => {
         if (!isUserLoggedIn) {
@@ -263,14 +236,6 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
     const handleBookNow = (ride) => {
         setSelectedRide(ride);
     };
-
-    // const handlePaymentSuccess = (rideId) => {
-    //     setRideBookings(prevBookings => ({
-    //         ...prevBookings,
-    //         [rideId]: (prevBookings[rideId] || 0) + 1
-    //     }));
-    //     fetchRides();
-    // };
 
     return (
         <>
@@ -433,15 +398,12 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
                                                     </div>
                                                     <div className="flex items-center">
                                                         <span className="w-24 font-medium tch5">Date:</span>
-                                                        <span className="tch5">{(trip.time).toDate().toLocaleString("en-US", {
-                                                            year: "numeric",
-                                                            month: "2-digit",
-                                                            day: "2-digit",
-                                                            hour: "2-digit",
-                                                            minute: "2-digit",
-                                                            second: "2-digit",
-                                                            hour12: true
-                                                        })}
+                                                        <span className="tch5">{(trip.date).toString()}
+                                                        </span>
+                                                    </div>
+                                                    <div className="flex items-center">
+                                                        <span className="w-24 font-medium tch5">Time:</span>
+                                                        <span className="tch5">{(trip.time).toString()}
                                                         </span>
                                                     </div>
                                                 </div>
