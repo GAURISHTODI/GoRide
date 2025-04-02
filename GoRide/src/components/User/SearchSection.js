@@ -6,7 +6,7 @@ import PaymentComponent from '../Payments/PaymentComponent';
 import MapComponent from '../User/MapComponent';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
-import { Timestamp } from "firebase/firestore";
+import { Timestamp, addDoc } from "firebase/firestore";
 import "./SearchSection.css"
 // Query Firestore
 const SearchSection = ({ setSearchQuery, setDistance }) => {
@@ -137,6 +137,11 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
     };
     const fetchAvailableTrips = async () => {
         try {
+            const id = localStorage.getItem("id");
+            if (!id) {
+                alert("Please login/signup before you proceed!");
+                return;
+            }
             console.log(date.toString());
             const [year, month, day] = date.split("-");
             console.log(year + " " + month + " " + day);
@@ -151,7 +156,8 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
                 collection(db, "requests"),
                 where("date", "==", date.toString()),
                 where("dest", "==", normalizedTo),
-                where("start", "==", normalizedFrom)
+                where("start", "==", normalizedFrom),
+                where("uid", "!=", id)
             );
             const querySnapshot = await getDocs(q);
             const filteredTrips = []
@@ -161,7 +167,7 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
                 console.log(data.name);
                 filteredTrips.push(doc.data());
             });
-            console.log(filteredTrips.length);
+            console.log(filteredTrips.length==0);
             setAvailableTrips(filteredTrips);
         } catch (error) {
             console.error("Error fetching trips from Firebase:", error);
@@ -170,23 +176,18 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
 
 
 
-    const handleJoinTrip = async (tripId) => {
-        if (!isUserLoggedIn) {
-            navigate('/login');
+    const handleJoin = async (trip) => {
+        console.log("Hello!");
+        const id = localStorage.getItem("id");
+        if (!id) {
+            alert("Please login/signup before you proceed!");
             return;
         }
-
         setIsJoining(true);
+        trip.pid= id;
         try {
-            // Here you would implement the logic to join the trip
-            // This could involve updating the trip document in Firebase
-            // For example, adding the user's ID to an array of participants
-
-            // For demonstration purposes, we'll just show an alert
-            alert(`Successfully joined trip ${tripId}`);
-
-            // Refresh the list of available trips
-            await fetchAvailableTrips();
+            await addDoc(collection(db, "passangers"), trip );
+            alert(`You can now view your trip under MyRides section`);
         } catch (error) {
             console.error("Error joining trip:", error);
             alert("Failed to join trip. Please try again.");
@@ -316,27 +317,6 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
                                         }}
                                     />
                                 </div>
-                                {/* <div className="flex-1">
-                                    <label className="block tch2" htmlFor="time">Time</label>
-                                    <input
-                                        className="w-full border-gray-300 rounded-lg p-2"
-                                        id="time"
-                                        type="time"
-                                        value={time}
-                                        onChange={(e) => setTime(e.target.value)}
-                                        onFocus={() => setIsFocused4(true)}
-                                        onBlur={() => setIsFocused4(false)}
-                                        style={{
-                                            backgroundColor: "#1f1f1f",
-                                            color: `${isFocused4 ? "#9e7aff" : "#8164d0"}`,
-                                            border: `2px solid ${isFocused4 ? "#9e7aff" : "#534a6a"}`,
-                                            padding: "8px",
-                                            borderRadius: "5px",
-                                            width: "100%",
-                                            outline: "none", // Removes default browser outline
-                                        }}
-                                    />
-                                </div> */}
                             </div>
                             <button
                                 type="submit"
@@ -410,7 +390,8 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
 
                                                 <button
                                                     className="mt-4 w-full bg-green-500 text-white font-medium py-2 px-4 rounded-md hover:bg-green-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
-                                                    disabled={isJoining}
+                                        
+                                                    onClick={() => handleJoin(trip)}
                                                 >
                                                     {isJoining ? 'Joining...' : 'Join'}
                                                 </button>

@@ -86,11 +86,13 @@ const YourRides = () => {
       }
       const uid= localStorage.getItem("id");
       const requestsRef = collection(db, "requests");
-      const querySnapshot = await getDocs(requestsRef);
+      const querySnapshot1 = await getDocs(requestsRef);
       const userTrips = [];
+      const passangersRef= collection(db, "passangers");
+      const querySnapshot2= await getDocs(passangersRef);
       let i=0;
       console.log(uid);
-     querySnapshot.forEach((doc) => {
+     querySnapshot1.forEach((doc) => { // trips create by me
        const data = doc.data();
        if (data.uid === uid) {
          userTrips.push({
@@ -99,6 +101,17 @@ const YourRides = () => {
          });
        }
      });
+     querySnapshot2.forEach((doc) => { // trips in which i am part of
+      const data = doc.data();
+      console.log(data);
+      if (data.pid=== uid) {
+        userTrips.push({
+          id: ++i,
+          ...data
+        });
+      }
+    });
+    console.log(userTrips.length==0);
       setTrips(userTrips);
       setLoading(false);
     } catch (err) {
@@ -282,7 +295,7 @@ const YourRides = () => {
                     <div className="bg-gray-900 shadow-lg border border-purple-500 hover:shadow-xl transition-all rounded-xl p-4 flex flex-col justify-between">
                       <div>
                         <div className="flex justify-between items-center mb-2">
-                          <h3 className="font-bold text-lg text-purple-400">Trip Details</h3>
+                          <h3 className="font-bold text-lg text-purple-400">Trip by {trip.name}</h3>
                           <span className="bg-purple-600 text-white text-xs px-2 py-1 rounded-full">
                             {trip.curr_person || 0}/{trip.max_person} seats
                           </span>

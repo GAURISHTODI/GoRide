@@ -176,8 +176,6 @@ const Login = () => {
                     </ div>
                 </div>
             </div>
-
-            {/* Modal Popup */}
             {modalVisible && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
                     <div className="bg-white p-6 rounded shadow-lg text-center w-80">
@@ -200,41 +198,4 @@ const Login = () => {
         </div>
     );
 };
-
 export default Login;
-
-/*
-await signInWithEmailAndPassword(auth, email, password) //READ OPERATION
-                .then((userCredential) => {
-                    const id = auth.currentUser.uid;
-                    try {
-                        const docRef = doc(db, "users", id);
-                        const docSnap = getDoc(docRef);
-                            const userData = docSnap.data();
-                            email = userData.email
-                            localStorage.setItem('id', id);
-                            localStorage.setItem('role', userData.role);
-                            localStorage.setItem('username', userData.name);
-                            console.log(localStorage.getItem('id'));
-                            if (userData.role === 'user') {
-                                navigate('/search');
-                            } else if (userData.role === 'driver') {
-                                navigate('/publish-ride');
-                            } else {
-                                setModalMessage('Role not recognized.');
-                                setModalVisible(true);
-                            }
-                            setModalMessage('Login successful!');
-                            setModalVisible(true);
-                    }
-                    catch (error) {
-                        setModalMessage(error.message);
-                        setModalVisible(true);
-                    }
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    setModalMessage(error.message);
-                    setModalVisible(true);
-                });*/
