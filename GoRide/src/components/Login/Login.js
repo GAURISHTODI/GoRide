@@ -4,6 +4,8 @@ import { Link, data, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from '../firebase';
 import { doc, getDoc } from "firebase/firestore";
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+
 async function handleLogin(navigate, setModalMessage, setModalVisible, email, password) {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -72,6 +74,14 @@ const Login = () => {
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8 bgcl">
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "50vh" }}>
+                    <DotLottieReact
+                        src="https://lottie.host/a4858d63-53bb-448b-9fb0-0382a347ccf4/shjEVaDIRK.lottie"
+                        loop
+                        autoplay
+                        style={{ width: "300px", height: "300px" }} 
+                    />
+                </div>
                 <div className=" py-8 px-4 shadow sm:rounded-lg sm:px-10 bgc2l">
                     <div className="sm:mx-auto sm:w-full sm:max-w-md">
                         <h2 className="text-2xl font-bold tcl mb-6 text-center">

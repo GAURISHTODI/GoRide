@@ -109,12 +109,15 @@ const Signup = () => {
     };
     return (
         <>
-            <DotLottieReact
-                src="https://lottie.host/70b9f05c-ca01-4d7f-93fd-388777cae332/Bu4iCgMRGd.lottie"
-                loop
-                autoplay
-                style={{ width: "100px", height: "100px" }} 
-            />
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "50vh" }}>
+    <DotLottieReact
+        src="https://lottie.host/a4858d63-53bb-448b-9fb0-0382a347ccf4/shjEVaDIRK.lottie"
+        loop
+        autoplay
+        style={{ width: "300px", height: "300px" }} 
+    />
+</div>
+
             {modalVisible && (
                 <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
                     <div className="bg-white p-6 rounded shadow-lg text-center">

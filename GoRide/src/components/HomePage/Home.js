@@ -7,6 +7,7 @@ import Search from './Search';
 import Page1 from './Page1';
 import OffersSection from '../User/OffersSection';
 import UserNavbar from './NavBar';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 // import Features from './Features';
 // import NavBar from './NavBar';
 
@@ -15,6 +16,14 @@ const Home = () => {
         <>
 
             <UserNavbar />
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "50vh" }}>
+                    <DotLottieReact
+                        src="https://lottie.host/b8b02675-01f5-41ba-8289-29d087579193/kAl8KvF1MI.lottie"
+                        loop
+                        autoplay
+                        style={{ width: "600px", height: "600px" }} 
+                    />
+                </div>
             <div className="home-container bgd2"> {/* Added class here */}
                 <h1 className="home-title tc">Travel Together, Save Together</h1>
                 <p className="home-paragraph tc">Find a Ride, Make a Friend</p>
@@ -23,6 +32,7 @@ const Home = () => {
                 {/* <input type="text" class="horizontal-scroll-input" placeholder="GoRide" /> */}
 
             </div>
+           
             <Search />
             <Page1 />
             <OffersSection />
@@ -51,7 +61,7 @@ const Home = () => {
                     <div className="relative overflow-hidden rounded-lg border bgd2  select-none hover:shadow hover:shadow-teal-200 p-6 flex flex-col items-center space-y-4">
                         <i className="fas fa-user-circle text-5xl text-yellow-500"></i> {/* User Profile Icon */}
                         <div className="space-y-2 text-center">
-                            <h3 className="font-bold tc2">Driver and Passenger Profiles</h3>
+                            <h3 className="font-bold tc2">Passenger Profiles</h3>
                             <p className="text-sm tc3">
                                 View and manage your profile, vehicle details, and trip history for personalized experiences.
                             </p>
@@ -62,42 +72,33 @@ const Home = () => {
                     <div className="relative overflow-hidden rounded-lg border bgd2  select-none hover:shadow hover:shadow-teal-200 p-6 flex flex-col items-center space-y-4">
                         <i className="fas fa-dollar-sign text-5xl text-green-500"></i> {/* Dynamic Pricing Icon */}
                         <div className="space-y-2 text-center">
-                            <h3 className="font-bold tc2">Dynamic Pricing</h3>
+                            <h3 className="font-bold tc2">Cost Saving</h3>
                             <p className="text-sm tc3 text-muted-foreground">
-                                Prices adjust in real-time based on demand, distance, and time, ensuring fair and transparent fares.
+                                Prices adjust in real-time based on demand, distance, and time, ensuring fair and transparent fares, using GoogleDistanceAPI
                             </p>
                         </div>
                     </div>
 
-                    {/* Feature Item 4: Real-Time Ride Tracking */}
+                    {/* Feature Item 4: Real-Time Distance Tracking */}
                     <div className="relative overflow-hidden rounded-lg border bgd2  select-none hover:shadow hover:shadow-teal-200 p-6 flex flex-col items-center space-y-4">
                         <i className="fas fa-map-marker-alt text-5xl text-blue-500"></i> {/* Location Tracking Icon */}
                         <div className="space-y-2 text-center">
-                            <h3 className="font-bold tc2">Real-Time Ride Tracking</h3>
+                            <h3 className="font-bold tc2">Real-Time Distance Tracking</h3>
                             <p className="text-sm tc3 text-muted-foreground">
                                 Track your ride in real-time, ensuring you always know the location and estimated arrival time.
                             </p>
                         </div>
                     </div>
 
-                    {/* Feature Item 5: Payment Integration */}
-                    <div className="relative overflow-hidden rounded-lg border bgd2  select-none hover:shadow hover:shadow-teal-200 p-6 flex flex-col items-center space-y-4">
-                        <i className="fas fa-credit-card text-5xl text-purple-500"></i> {/* Payment Integration Icon */}
-                        <div className="space-y-2 text-center">
-                            <h3 className="font-bold tc2">Payment Integration</h3>
-                            <p className="text-sm tc3 text-muted-foreground">
-                                Secure, fast payment options including credit cards and wallets, supporting cashless transactions.
-                            </p>
-                        </div>
-                    </div>
+                    
 
                     {/* Feature Item 6: Trip Ratings & Reviews */}
                     <div className="relative overflow-hidden rounded-lg border bgd2  select-none hover:shadow hover:shadow-teal-200 p-6 flex flex-col items-center space-y-4">
                         <i className="fas fa-star text-5xl text-yellow-400"></i> {/* Rating & Review Icon */}
                         <div className="space-y-2 text-center">
-                            <h3 className="font-bold tc2">Trip Ratings & Reviews</h3>
+                            <h3 className="font-bold tc2">Live Satellite View</h3>
                             <p className="text-sm tc3 text-muted-foreground">
-                                Rate and review your ride experience, helping improve the platform and assisting other users.
+                                Review your ride experience, helping improve the platform and assisting other users.
                             </p>
                         </div>
                     </div>
