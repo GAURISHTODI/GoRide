@@ -14,7 +14,7 @@ const Page1 = () => {
                 </div>
                 <div className="flex-1 flex items-end justify-center">
                     <img 
-                        src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjWelS43oB6BpKAFWM2nZj3Hr-zZMdwbYf_FFOIaF_x0aCA7wbbyHQifwphblwgrLqWG2pWv-L0Jb0WA2nZGDvnywuVGzthjox1yQcbd_utqUbwu2CNfo7OyKrVss3F05kLqZlkLQTXTcUXwiQBxQTFZx6v5WwawNPDVSA9Af8Xt0TC91CTDulRIEqy9NM/s1472/white%20car%20with%20name%20_GoRide_%20%20on%20road%20promotion%20banner%20and%20car%20parked%20below%20it%20named%20GoRide%20promoting%20GoRide%20a%20platform%20of%20sharing%20cab%20booking.jpg" 
+                        src="https://scontent.fmaa2-1.fna.fbcdn.net/o1/v/t0/f2/m340/AQOhjNqN7IMPx_sWEXtH4tbSE43oTTApOdD4TMmWX-T7KN2qKTmr8BxXRMTnmMohVxqb-2SvwQxYQGfiVyffWKgIih5pf2uBIgAj2zx7smdBYRAh3Bg7_f_zw_WEjDcUN8zAebJS3qdgdcHerh8yd-owk2o.jpeg?_nc_ht=scontent.fmaa2-1.fna.fbcdn.net&_nc_cat=104&_nc_oc=AdlhwiVMkoq5anwjDM0UIN0tBfkZTprQI8fCS8hAb6r79jYS1EeoBKrnQzwq3IX7GshY8kNCVOZRG-OCIZMlBsE8&ccb=9-4&oh=00_AYFBkA0Y_6eKvDFHXS75OpF5mUQ7UbFwIXojqjPMr0fDzg&oe=67EF6171&_nc_sid=5b3566" 
                         alt="Offer" 
                         style={{ width: '861px', height: '286px', objectFit: 'cover' }} // Set width and height
                         className="rounded-lg" 

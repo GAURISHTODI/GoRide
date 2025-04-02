@@ -45,3 +45,20 @@
     color: #9da4b0;
 
 }
+
+.pb:hover{
+    border: 1px solid #9d7aff;
+    color: #121212;
+    background-color: #9d7aff;
+    box-shadow: 0 6px 20px #9d7aff5b;
+    
+
+}
+
+.bgch3{
+    background-color: #9e7aff;
+}
+
+.ttt{
+    color: #1f1f1f;
+}

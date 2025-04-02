@@ -176,14 +176,7 @@ const Search = ({ setDistance }) => {
                                         min={new Date().toISOString().split("T")[0]}  // Set min to the current date
                                     />
                                 </div>
-                                <div className="flex-1">
-                                    <label className="block tc2" htmlFor="time">Time</label>
-                                    <input
-                                        className="w-full border-gray-300 rounded-lg p-2 fc"
-                                        id="time"
-                                        type="time"
-                                    />
-                                </div>
+
                             </div>
                             <button
                                 type="submit"

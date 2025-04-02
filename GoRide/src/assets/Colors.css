@@ -1,32 +1,34 @@
-.bgd{
+.bgch{
     background-color: #121212;
+    min-height: 100vh ;
+}
+.bgch2{
+    background-color: #1f1f1f;
+}
+.bgch3{
+    background-color: #9e7aff;
+}
+.bgch4{
+    background-color: #262626;
+}
+.bgch5{
+    background-color: #414141;
 }
 
-.bgd2{
-    background-color: #1f1f1f
-    ;
-    border-radius: 20px;
-
-                
+.tch{
+    color: #9e7aff
 }
-
-.rtc{
-    color: #b0b0b0;
+.tch2{
+    color: #534a6a;
 }
-
-.bgc{
-    background-color: #121212;
+.tch3{
+    color: #766996;
 }
-
-
-.tc{
-    color: #9e7aff;
-}
-.tc2{
+.tch4{
     color: #c9b8fa;
 }
-.tc3{
-    color: #534a6a;
+.tch5{
+    color: #f0ecfc;
 }
 
 .fc{
@@ -44,6 +46,11 @@
 
 }
 
+const [isFocused, setIsFocused] = useState(false);
+
+
+onFocus={() => setIsFocused(true)}
+onBlur={() => setIsFocused(false)}
 style={{
     backgroundColor: "#1f1f1f",
     color: `${isFocused ? "#9e7aff" : "#8164d0"}`,
@@ -53,3 +60,23 @@ style={{
     width: "100%",
     outline: "none", // Removes default browser outline
 }}
+
+
+onFocus={() => setIsFocused(true)}
+                      onBlur={() => setIsFocused(false)}
+                      style={{
+                        backgroundColor: "#1f1f1f",
+                        color: `${isFocused ? "#f0ecfc" : "#9e7aff"}`,
+                        border: `2px solid ${isFocused ? "#9e7aff" : "#534a6a"}`,
+                        padding: "8px",
+                        borderRadius: "5px",
+                        width: "100%",
+                        outline: "none", // Removes default browser outline
+                      }}
+
+                      const [isFocused, setIsFocused] = useState(false);
+                      const [isFocused2, setIsFocused2] = useState(false);
+                      const [isFocused3, setIsFocused3] = useState(false);
+                      const [isFocused4, setIsFocused4] = useState(false);
+                      const [isFocused5, setIsFocused5] = useState(false);
+                      const [isFocused6, setIsFocused6] = useState(false);
