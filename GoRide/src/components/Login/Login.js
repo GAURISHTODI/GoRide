@@ -72,17 +72,20 @@ const Login = () => {
         setModalVisible(false);
     };
     return (
-        <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8 bgcl">
-            <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "50vh" }}>
+        <div className="min-h-screen bg-gray-100 flex justify-center items-center bgcl">
+            <div className="flex flex-row items-center justify-center w-full max-w-4xl">
+                {/* Left Side - Animation */}
+                <div className="flex justify-center items-center w-1/2">
                     <DotLottieReact
                         src="https://lottie.host/a4858d63-53bb-448b-9fb0-0382a347ccf4/shjEVaDIRK.lottie"
                         loop
                         autoplay
-                        style={{ width: "300px", height: "300px" }} 
+                        style={{ width: "300px", height: "300px" }}
                     />
                 </div>
-                <div className=" py-8 px-4 shadow sm:rounded-lg sm:px-10 bgc2l">
+    
+                {/* Right Side - Login Form */}
+                <div className="w-1/2 py-8 px-4 shadow sm:rounded-lg sm:px-10 bgc2l">
                     <div className="sm:mx-auto sm:w-full sm:max-w-md">
                         <h2 className="text-2xl font-bold tcl mb-6 text-center">
                             Welcome Back!
@@ -110,14 +113,14 @@ const Login = () => {
                                         padding: "8px",
                                         borderRadius: "5px",
                                         width: "100%",
-                                        outline: "none", // Removes default browser outline
+                                        outline: "none",
                                     }}
                                     placeholder="Enter your email address"
                                 />
                                 {emailError && <p className="text-red-500 text-xs">{emailError}</p>}
                             </div>
                         </div>
-
+    
                         <div>
                             <label htmlFor="password" className="block text-sm font-medium tc3l">
                                 Password
@@ -140,17 +143,13 @@ const Login = () => {
                                         padding: "8px",
                                         borderRadius: "5px",
                                         width: "100%",
-                                        outline: "none", // Removes default browser outline
+                                        outline: "none",
                                     }}
                                 />
                                 {passwordError && <p className="text-red-500 text-xs">{passwordError}</p>}
                             </div>
                         </div>
-
-                        <div className="flex items-center justify-between">
-                           
-                        </div>
-
+    
                         <div>
                             <button
                                 type="submit"
@@ -160,6 +159,7 @@ const Login = () => {
                             </button>
                         </div>
                     </form>
+    
                     <div className="mt-6">
                         <div className="relative">
                             <div className="absolute inset-0 flex items-center">
@@ -171,21 +171,21 @@ const Login = () => {
                                 </span>
                             </div>
                         </div>
-
+    
                         <div className="mt-6 grid grid-cols-1 gap-1">
                             <div>
-
                                 <button
                                     onClick={handleCreate}
-                                    className="w-full flex items-center justify-center px-8 py-3 border  rounded-md  text-sm font-medium bgc3l mt-4 pbl"
+                                    className="w-full flex items-center justify-center px-8 py-3 border rounded-md text-sm font-medium bgc3l mt-4 pbl"
                                 >
                                     Create New Account
                                 </button>
                             </div>
                         </div>
-                    </ div>
+                    </div>
                 </div>
             </div>
+    
             {modalVisible && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
                     <div className="bg-white p-6 rounded shadow-lg text-center w-80">
@@ -207,5 +207,6 @@ const Login = () => {
             )}
         </div>
     );
+    
 };
 export default Login;
