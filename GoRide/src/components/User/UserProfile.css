@@ -1,45 +1,54 @@
-.bgch{
+.sz{
+    height: 84.5vh;
+}
+
+.sz2{
+    height: 55vh;
+}
+
+.prp{
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+
+.bp{
+    border: 1px solid #534a6a;
+}
+
+.bgcp{
     background-color: #121212;
     /* height: 58vh; */
-    min-height: 58vh ;
 }
-.bgch2{
+.bgcp2{
     background-color: #1f1f1f;
 }
-.bgch3{
+.bgcp3{
     background-color: #9e7aff;
 }
-.bgch4{
+.bgcp4{
     background-color: #262626;
 }
-.bgch5{
+.bgcp5{
     background-color: #414141;
 }
 
-.tch{
+
+.tcp{
     color: #9e7aff
 }
-.tch2{
+.tcp2{
     color: #534a6a;
 }
-.tch3{
+.tcp3{
     color: #766996;
 }
-.tch4{
+.tcp4{
     color: #c9b8fa;
 }
-.tch5{
+.tcp5{
     color: #f0ecfc;
 }
-.tch6{
+.tcp6{
     color: #c0bdc8;
-}
-
-.pbh:hover{
-    border: 1px solid #9d7aff;
-    color: #121212;
-    background-color: #9d7aff;
-    box-shadow: 0 6px 20px #9d7aff5b;
-    
-
 }

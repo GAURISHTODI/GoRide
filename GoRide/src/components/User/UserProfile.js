@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserNavbar from './UserNavbar';
+import "./UserProfile.css"
 
 const UserProfile = () => {
     const navigate = useNavigate();
@@ -28,16 +29,16 @@ const UserProfile = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div className="flex flex-col bgcp sz">
             <UserNavbar />
-            <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-                    <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">Your Profile</h2>
+            <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md ">
+                <div className="bgcp2 py-8 px-4 shadow sm:rounded-lg sm:px-10 sz2">
+                    <h2 className="text-2xl font-bold tcp mb-6 text-center">Your Profile</h2>
 
                     {/* Form to Edit User Details */}
-                    <form className="space-y-6" onSubmit={handleSubmit}>
+                    <form className="space-y-10" onSubmit={handleSubmit}>
                         <div>
-                            <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+                            <label htmlFor="username" className="block text-sm font-medium tcp2">
                                 Username
                             </label>
                             <div className="mt-1">
@@ -48,7 +49,7 @@ const UserProfile = () => {
                                     required
                                     value={userDetails.Username}
                                     onChange={handleInputChange}
-                                    className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                    className="rounded-md relative block w-full px-3 py-2 tcp6 bgcp2 bp sm:text-sm"
                                     placeholder="Enter your username"
                                     disabled={!isEditing}
                                 />
@@ -56,7 +57,7 @@ const UserProfile = () => {
                         </div>
 
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                            <label htmlFor="email" className="block text-sm font-medium tcp2">
                                 Email address
                             </label>
                             <div className="mt-1">
@@ -67,7 +68,7 @@ const UserProfile = () => {
                                     required
                                     value={userDetails.email}
                                     onChange={handleInputChange}
-                                    className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                    className="rounded-md relative block w-full px-3 py-2 tcp6 bgcp2 bp sm:text-sm"
                                     placeholder="Enter your email address"
                                     disabled={!isEditing}
                                 />
@@ -75,7 +76,7 @@ const UserProfile = () => {
                         </div>
 
                         <div>
-                            <label htmlFor="mobileNumber" className="block text-sm font-medium text-gray-700">
+                            <label htmlFor="mobileNumber" className="block text-sm font-medium tcp2">
                                 Mobile Number
                             </label>
                             <div className="mt-1">
@@ -85,7 +86,7 @@ const UserProfile = () => {
                                     type="text"
                                     value={userDetails.mobileNumber}
                                     onChange={handleInputChange}
-                                    className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                    className="rounded-md relative block w-full px-3 py-2 tcp6 bgcp2 bp sm:text-sm"
                                     placeholder="Enter your mobile number"
                                     disabled={!isEditing}
                                 />
