@@ -3,6 +3,7 @@ import { HubConnectionBuilder, LogLevel, HttpTransportType } from '@microsoft/si
 import UserNavbar from './User/UserNavbar';
 import NavbarDriver from './Driver/NavBarDriver';
 import * as signalR from "@microsoft/signalr";
+import "./ChatComponent.css"
 
 const ChatComponent = ({ username, chatroom, role }) => {
     const [conn, setConnection] = useState(null);
