@@ -31,10 +31,10 @@ const AboutUs = () => {
                         <i className="fas fa-history mr-2"></i>How It All Started
                     </h3>
                     <p className="section-text">
-                        The idea for GoRide was born out of a shared experience among our group during the Diwali festival. Each year, we faced significant challenges trying to get home to our families amidst the heavy traffic and limited transportation options. Frustrated by the difficulties of travel during this busy time, we realized there had to be a better way to connect people who were traveling in the same direction.
+                    At GoRide, we believe in making travel more affordable, sociable, and convenient. Our community-based travel network connects millions of members looking to share rides, making it easier for everyone to reach their destinations while reducing the environmental impact of travel. By leveraging technology, we aim to fill empty seats on the road, creating a more sustainable and connected world. This project under Prof. SMT. PADMA PRIYA mam helped us to learning a lot of things.
                     </p>
                     <p className="section-text">
-                        This realization sparked our vision for a platform that would make travel easier and more accessible for everyone. We came together as a team to develop GoRide, a solution that not only addresses the challenges of holiday travel but also fosters a sense of community among travelers. Our goal is to ensure that no one has to face the journey alone, especially during times when family reunions are most important.
+                    The idea for GoRide was born out of a shared experience among our group when we were assigned a class group project by Prof. SMT. PADMA PRIYA mam during our Winter Semester 2024-25 as our final project for Web Programming. While brainstorming ideas, we recognized the common struggle of finding reliable transportation, especially during peak travel times. This led us to develop a platform that connects people traveling in the same direction, making commuting more efficient and convenient
                     </p>
                 </div>
 

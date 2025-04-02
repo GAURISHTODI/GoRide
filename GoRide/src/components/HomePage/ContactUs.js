@@ -111,7 +111,7 @@ const ContactUs = () => {
                                         <div className="ml-4 mb-4">
                                             <h3 className="mb-2 text-lg font-medium leading-6 tc dark:text-white">Contact</h3>
                                             <p className="tc3 dark:text-slate-400">Mobile: +91 99999 88888</p>
-                                            <p className="tc3 dark:text-slate-400">Mail: support@GoRide.com</p>
+                                            <p className="tc3 dark:text-slate-400">Mail: support@goride.com</p>
                                         </div>
                                     </li>
                                     <li className="flex">
