@@ -1,7 +1,9 @@
+
 .bgch{
     background-color: #121212;
     /* height: 58vh; */
     min-height: 58vh ;
+    max-height: 100%;
 }
 .bgch2{
     background-color: #1f1f1f;
@@ -43,3 +45,7 @@
     
 
 }
+
+.pc::placeholder {
+    color: #9e7aff;
+  }

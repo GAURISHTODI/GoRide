@@ -360,7 +360,7 @@ const YourRides = () => {
               {trips.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                   {trips.map((trip) => (
-                    <div className="bgch2 shadow-lg border border-purple-500 hover:shadow-xl transition-all rounded-xl p-4 flex flex-col justify-between">
+                    <div className="bgch2 shadow-lg bch hover:shadow-xl transition-all rounded-xl p-4 flex flex-col justify-between">
                       <div>
                         <div className="flex justify-between items-center mb-2">
                           <h3 className="font-bold text-lg text-purple-400">Trip by {trip.name}</h3>
@@ -368,11 +368,11 @@ const YourRides = () => {
                             {trip.curr_person || 0}/{trip.max_person} seats
                           </span>
                         </div>
-                        <div className="space-y-2">
+                        <div className="">
                           <p><strong className="tch5">From:</strong> <span className="tch7">{trip.start}</span></p>
-                          <p><strong className="tch5">To:</strong> {trip.dest}</p>
-                          <p><strong className="tch5">Date:</strong> {trip.date}</p>
-                          <p><strong className="tch5">Time:</strong> {(trip.time).toString()}</p>
+                          <p><strong className="tch5">To:</strong> <span className="tch7">{trip.dest}</span></p>
+                          <p><strong className="tch5">Date:</strong> <span className="tch7">{trip.date}</span></p>
+                          <p><strong className="tch5">Time:</strong> <span className="tch7">{(trip.time).toString()}</span></p>
                         </div>
                       </div>
                     </div>

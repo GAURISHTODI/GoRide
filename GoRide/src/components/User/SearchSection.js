@@ -241,7 +241,7 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
     return (
         <>
             <UserNavbar />
-            <section id="Search" className="py-10 bgch">
+            <section id="Search" className="py-10 bgch h-auto"> 
                 <div className="container mx-auto px-4">
                     <div className="bgch2 shadow-md rounded-lg p-6">
                         <h2 className="text-2xl font-bold mb-4 tch">Search for a ride</h2>
@@ -251,7 +251,7 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
                                     <label className="block tch2" htmlFor="from">From</label>
                                     <input
                                         ref={fromInputRef}
-                                        className="w-full border-gray-300 rounded-lg p-2"
+                                        className="w-full border-gray-300 rounded-lg p-2 pc"
                                         id="from"
                                         placeholder="City or address"
                                         type="text"
@@ -261,7 +261,7 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
                                         onBlur={() => setIsFocused(false)}
                                         style={{
                                             backgroundColor: "#1f1f1f",
-                                            color: `${isFocused ? "#9e7aff" : "#8164d0"}`,
+                                            color: `${isFocused ? "#f0ecfc" : "#9e7aff"}`,
                                             border: `2px solid ${isFocused ? "#9e7aff" : "#534a6a"}`,
                                             padding: "8px",
                                             borderRadius: "5px",
@@ -274,7 +274,7 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
                                     <label className="block tch2" htmlFor="to">To</label>
                                     <input
                                         ref={toInputRef}
-                                        className="w-full border-gray-300 rounded-lg p-2"
+                                        className="w-full border-gray-300 rounded-lg p-2 pc"
                                         id="to"
                                         placeholder="City or address"
                                         type="text"
@@ -284,7 +284,7 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
                                         onBlur={() => setIsFocused2(false)}
                                         style={{
                                             backgroundColor: "#1f1f1f",
-                                            color: `${isFocused2 ? "#9e7aff" : "#8164d0"}`,
+                                            color: `${isFocused2 ? "#f0ecfc" : "#9e7aff"}`,
                                             border: `2px solid ${isFocused2 ? "#9e7aff" : "#534a6a"}`,
                                             padding: "8px",
                                             borderRadius: "5px",
@@ -399,7 +399,7 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
                                         ))}
                                     </div>
                                 ) : (
-                                    <div className="bg-gray-50 rounded-lg p-6 text-center">
+                                    <div className="bgch4 rounded-lg p-6 text-center">
                                         <p className="text-gray-600">No trips available matching your criteria.</p>
                                         <p className="text-gray-500 text-sm mt-2">Try different locations or dates to find available trips.</p>
                                     </div>
@@ -435,7 +435,7 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
                             </div>
                         )}
                     </div>
-                    {selectedRide && (
+                    {/* {selectedRide && (
                         <div className="mt-6">
                             <PaymentComponent
                                 amount={selectedRide.price}
@@ -443,7 +443,7 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
                                 userId={userId}
                             />
                         </div>
-                    )}
+                    )} */}
                 </div>
             </section>
         </>

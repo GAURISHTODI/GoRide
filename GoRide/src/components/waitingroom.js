@@ -18,7 +18,7 @@ const WaitingRoom = ({ joinChatRoom }) => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bgch">
+        <div className="flex justify-center items-center min-h-screen bgch h-auto">
             <div className="bgch2 shadow-lg rounded-lg p-6 w-full max-w-md">
                 <h2 className="text-2xl font-bold text-purple-400 text-center mb-6">Ride Chat</h2>
                 <form onSubmit={handleSubmit} className="space-y-6">
