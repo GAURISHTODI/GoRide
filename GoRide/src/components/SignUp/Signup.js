@@ -7,6 +7,7 @@ import { auth, provider, db } from '../firebase'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { collection, addDoc, doc, setDoc } from "firebase/firestore";
 import "./Signup.css"
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -108,6 +109,12 @@ const Signup = () => {
     };
     return (
         <>
+            <DotLottieReact
+                src="https://lottie.host/70b9f05c-ca01-4d7f-93fd-388777cae332/Bu4iCgMRGd.lottie"
+                loop
+                autoplay
+                style={{ width: "100px", height: "100px" }} 
+            />
             {modalVisible && (
                 <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
                     <div className="bg-white p-6 rounded shadow-lg text-center">
@@ -224,7 +231,7 @@ const Signup = () => {
                             </>
                         )} */}
                         <div className="mb-4">
-                            
+
                             <label className="block tcs2 text-sm font-bold mb-2" htmlFor="mobileNumber">Mobile Number</label>
                             {/* <PhoneInput
                                 id="mobileNumber"
@@ -249,27 +256,27 @@ const Signup = () => {
                             <div className="relative">
                                 <FaUser className="absolute left-3 top-2.5 text-gray-400" />
                                 <input
-                                type="tel"
-                                id="mobileNumber"
-                                placeholder="Enter mobile number"
-                                value={mobileNumber}
-                                onChange={(e) => setMobileNumber(e.target.value)}
-                                required
-                                className={`shadow rounded w-full py-2 px-10 leading-tight ${mobileError ? 'border-red-500' : ''}`}
-                                onFocus={() => setIsFocused2(true)}
-                                onBlur={() => setIsFocused2(false)}
-                                style={{
-                                    backgroundColor: "#1f1f1f",
-                                    color: `${isFocused2 ? "#9e7aff" : "#8164d0"}`,
-                                    border: `2px solid ${isFocused2 ? "#9e7aff" : "#534a6a"}`,
-                                    padding: "40px",
-                                    borderRadius: "5px",
-                                    width: "100%",
-                                    outline: "none", // Removes default browser outline
-                                }}
-                            />
+                                    type="tel"
+                                    id="mobileNumber"
+                                    placeholder="Enter mobile number"
+                                    value={mobileNumber}
+                                    onChange={(e) => setMobileNumber(e.target.value)}
+                                    required
+                                    className={`shadow rounded w-full py-2 px-10 leading-tight ${mobileError ? 'border-red-500' : ''}`}
+                                    onFocus={() => setIsFocused2(true)}
+                                    onBlur={() => setIsFocused2(false)}
+                                    style={{
+                                        backgroundColor: "#1f1f1f",
+                                        color: `${isFocused2 ? "#9e7aff" : "#8164d0"}`,
+                                        border: `2px solid ${isFocused2 ? "#9e7aff" : "#534a6a"}`,
+                                        padding: "40px",
+                                        borderRadius: "5px",
+                                        width: "100%",
+                                        outline: "none", // Removes default browser outline
+                                    }}
+                                />
                             </div>
-                            
+
 
                             {mobileError && <p className="text-red-500 text-xs">{mobileError}</p>}
                         </div>
