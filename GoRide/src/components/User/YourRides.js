@@ -9,11 +9,17 @@ const YourRides = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  
+
   // Input refs for Google Places Autocomplete
   const fromInputRef = useRef(null);
   const toInputRef = useRef(null);
-  
+  const [isFocused, setIsFocused] = useState(false);
+  const [isFocused2, setIsFocused2] = useState(false);
+  const [isFocused3, setIsFocused3] = useState(false);
+  const [isFocused4, setIsFocused4] = useState(false);
+  const [isFocused5, setIsFocused5] = useState(false);
+  const [isFocused6, setIsFocused6] = useState(false);
+
   // State for new trip
   const [newTrip, setNewTrip] = useState({
     name: "",
@@ -24,7 +30,7 @@ const YourRides = () => {
     time: "",
     max_person: "0",
     curr_person: "0",
-    uid:""
+    uid: ""
   });
 
   // Fetch user trips on component mount
@@ -84,34 +90,34 @@ const YourRides = () => {
         setLoading(false);
         return;
       }
-      const uid= localStorage.getItem("id");
+      const uid = localStorage.getItem("id");
       const requestsRef = collection(db, "requests");
       const querySnapshot1 = await getDocs(requestsRef);
       const userTrips = [];
-      const passangersRef= collection(db, "passangers");
-      const querySnapshot2= await getDocs(passangersRef);
-      let i=0;
+      const passangersRef = collection(db, "passangers");
+      const querySnapshot2 = await getDocs(passangersRef);
+      let i = 0;
       console.log(uid);
-     querySnapshot1.forEach((doc) => { // trips create by me
-       const data = doc.data();
-       if (data.uid === uid) {
-         userTrips.push({
-           id: ++i,
-           ...data
-         });
-       }
-     });
-     querySnapshot2.forEach((doc) => { // trips in which i am part of
-      const data = doc.data();
-      console.log(data);
-      if (data.pid=== uid) {
-        userTrips.push({
-          id: ++i,
-          ...data
-        });
-      }
-    });
-    console.log(userTrips.length==0);
+      querySnapshot1.forEach((doc) => { // trips create by me
+        const data = doc.data();
+        if (data.uid === uid) {
+          userTrips.push({
+            id: ++i,
+            ...data
+          });
+        }
+      });
+      querySnapshot2.forEach((doc) => { // trips in which i am part of
+        const data = doc.data();
+        console.log(data);
+        if (data.pid === uid) {
+          userTrips.push({
+            id: ++i,
+            ...data
+          });
+        }
+      });
+      console.log(userTrips.length == 0);
       setTrips(userTrips);
       setLoading(false);
     } catch (err) {
@@ -144,13 +150,13 @@ const YourRides = () => {
         setError("Please fill in all required fields");
         return;
       }
-      newTrip.name =  localStorage.getItem("username");
-      const id= localStorage.getItem("id");
-      newTrip.uid=id;
-      newTrip.phone= localStorage.getItem("phone");
-      newTrip.start= newTrip.start.toLowerCase().trim();
-      newTrip.dest= newTrip.dest.toLowerCase().trim();
-      const tripsRef = collection(db, "requests"); 
+      newTrip.name = localStorage.getItem("username");
+      const id = localStorage.getItem("id");
+      newTrip.uid = id;
+      newTrip.phone = localStorage.getItem("phone");
+      newTrip.start = newTrip.start.toLowerCase().trim();
+      newTrip.dest = newTrip.dest.toLowerCase().trim();
+      const tripsRef = collection(db, "requests");
       await addDoc(tripsRef, newTrip);
       setShowForm(false);
       setError(null);
@@ -167,10 +173,10 @@ const YourRides = () => {
       <div className="min-h-screen  bgch p-4">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl font-bold mb-4 text-center tch">Your Rides</h2>
-          
+
           {/* Create New Trip Button */}
           <div className="flex justify-end mb-6">
-            <button 
+            <button
               onClick={() => setShowForm(!showForm)}
               className=" bgch3 font-bold py-2 px-4 rounded-lg"
             >
@@ -192,13 +198,24 @@ const YourRides = () => {
                       name="from"
                       placeholder="City or address"
                       value={newTrip.start}
-                      onChange={(e) => setNewTrip({...newTrip, start: e.target.value})}
+                      onChange={(e) => setNewTrip({ ...newTrip, start: e.target.value })}
                       ref={fromInputRef}
                       required
-                      className="w-full p-2 rounded-md bg-gray-800 border border-gray-700 focus:border-purple-500 focus:outline-none"
+                      onFocus={() => setIsFocused(true)}
+                      onBlur={() => setIsFocused(false)}
+                      style={{
+                        backgroundColor: "#1f1f1f",
+                        color: `${isFocused ? "#f0ecfc" : "#9e7aff"}`,
+                        border: `2px solid ${isFocused ? "#9e7aff" : "#534a6a"}`,
+                        padding: "8px",
+                        borderRadius: "5px",
+                        width: "100%",
+                        outline: "none", // Removes default browser outline
+                      }}
+                      className="pc"
                     />
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-medium tch4 mb-1">To</label>
                     <input
@@ -206,13 +223,24 @@ const YourRides = () => {
                       name="to"
                       placeholder="City or address"
                       value={newTrip.dest}
-                      onChange={(e) => setNewTrip({...newTrip, dest: e.target.value})}
+                      onChange={(e) => setNewTrip({ ...newTrip, dest: e.target.value })}
                       ref={toInputRef}
                       required
-                      className="w-full p-2 rounded-md bg-gray-800 border border-gray-700 focus:border-purple-500 focus:outline-none"
+                      onFocus={() => setIsFocused2(true)}
+                      onBlur={() => setIsFocused2(false)}
+                      style={{
+                        backgroundColor: "#1f1f1f",
+                        color: `${isFocused2 ? "#f0ecfc" : "#9e7aff"}`,
+                        border: `2px solid ${isFocused2 ? "#9e7aff" : "#534a6a"}`,
+                        padding: "8px",
+                        borderRadius: "5px",
+                        width: "100%",
+                        outline: "none", // Removes default browser outline
+                      }}
+                      className="pc"
                     />
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-medium tch4 mb-1">Date</label>
                     <input
@@ -222,10 +250,20 @@ const YourRides = () => {
                       onChange={handleInputChange}
                       min={new Date().toISOString().split("T")[0]}  // Set min to current date
                       required
-                      className="w-full p-2 rounded-md bg-gray-800 border border-gray-700 focus:border-purple-500 focus:outline-none"
+                      onFocus={() => setIsFocused3(true)}
+                      onBlur={() => setIsFocused3(false)}
+                      style={{
+                        backgroundColor: "#1f1f1f",
+                        color: `${isFocused3 ? "#f0ecfc" : "#9e7aff"}`,
+                        border: `2px solid ${isFocused3 ? "#9e7aff" : "#534a6a"}`,
+                        padding: "8px",
+                        borderRadius: "5px",
+                        width: "100%",
+                        outline: "none", // Removes default browser outline
+                      }}
                     />
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-medium tch4 mb-1">Time</label>
                     <input
@@ -234,17 +272,37 @@ const YourRides = () => {
                       value={newTrip.time.toString()}
                       onChange={handleInputChange}
                       required
-                      className="w-full p-2 rounded-md bg-gray-800 border border-gray-700 focus:border-purple-500 focus:outline-none"
+                      onFocus={() => setIsFocused4(true)}
+                      onBlur={() => setIsFocused4(false)}
+                      style={{
+                        backgroundColor: "#1f1f1f",
+                        color: `${isFocused4 ? "#f0ecfc" : "#9e7aff"}`,
+                        border: `2px solid ${isFocused4 ? "#9e7aff" : "#534a6a"}`,
+                        padding: "8px",
+                        borderRadius: "5px",
+                        width: "100%",
+                        outline: "none", // Removes default browser outline
+                      }}
                     />
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-medium tch4 mb-1">Max Capacity</label>
                     <select
                       name="max_person"
                       value={newTrip.max_person}
                       onChange={handleInputChange}
-                      className="w-full p-2 rounded-md bg-gray-800 border border-gray-700 focus:border-purple-500 focus:outline-none"
+                      onFocus={() => setIsFocused5(true)}
+                      onBlur={() => setIsFocused5(false)}
+                      style={{
+                        backgroundColor: "#1f1f1f",
+                        color: `${isFocused5 ? "#f0ecfc" : "#9e7aff"}`,
+                        border: `2px solid ${isFocused5 ? "#9e7aff" : "#534a6a"}`,
+                        padding: "8px",
+                        borderRadius: "5px",
+                        width: "100%",
+                        outline: "none", // Removes default browser outline
+                      }}
                     >
                       <option value="1">1</option>
                       <option value="2">2</option>
@@ -260,7 +318,17 @@ const YourRides = () => {
                       name="curr_person"
                       value={newTrip.curr_person}
                       onChange={handleInputChange}
-                      className="w-full p-2 rounded-md bg-gray-800 border border-gray-700 focus:border-purple-500 focus:outline-none"
+                      onFocus={() => setIsFocused6(true)}
+                      onBlur={() => setIsFocused6(false)}
+                      style={{
+                        backgroundColor: "#1f1f1f",
+                        color: `${isFocused6 ? "#f0ecfc" : "#9e7aff"}`,
+                        border: `2px solid ${isFocused6 ? "#9e7aff" : "#534a6a"}`,
+                        padding: "8px",
+                        borderRadius: "5px",
+                        width: "100%",
+                        outline: "none", // Removes default browser outline
+                      }}
                     >
                       <option value="1">1</option>
                       <option value="2">2</option>
@@ -271,11 +339,11 @@ const YourRides = () => {
                     </select>
                   </div>
                 </div>
-                
+
                 <div className="mt-6">
                   <button
                     type="submit"
-                    className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg"
+                    className="w-full bg-purple-600 hover:bg-purple-700 tch6 font-bold py-2 px-4 rounded-lg pbh2"
                   >
                     Create Trip
                   </button>
@@ -292,7 +360,7 @@ const YourRides = () => {
               {trips.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                   {trips.map((trip) => (
-                    <div className="bg-gray-900 shadow-lg border border-purple-500 hover:shadow-xl transition-all rounded-xl p-4 flex flex-col justify-between">
+                    <div className="bgch2 shadow-lg border border-purple-500 hover:shadow-xl transition-all rounded-xl p-4 flex flex-col justify-between">
                       <div>
                         <div className="flex justify-between items-center mb-2">
                           <h3 className="font-bold text-lg text-purple-400">Trip by {trip.name}</h3>
@@ -301,19 +369,19 @@ const YourRides = () => {
                           </span>
                         </div>
                         <div className="space-y-2">
-                          <p><strong className="text-gray-400">From:</strong> {trip.start}</p>
-                          <p><strong className="text-gray-400">To:</strong> {trip.dest}</p>
-                          <p><strong className="text-gray-400">Date:</strong> {trip.date}</p>
-                          <p><strong className="text-gray-400">Time:</strong> {(trip.time).toString()}</p>
+                          <p><strong className="tch5">From:</strong> <span className="tch7">{trip.start}</span></p>
+                          <p><strong className="tch5">To:</strong> {trip.dest}</p>
+                          <p><strong className="tch5">Date:</strong> {trip.date}</p>
+                          <p><strong className="tch5">Time:</strong> {(trip.time).toString()}</p>
                         </div>
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div className="text-center bg-gray-900 p-8 rounded-lg border border-purple-500">
+                <div className="text-center bgch2 p-8 rounded-lg bch">
                   <p className="text-gray-400 mb-4">You don't have any trips yet.</p>
-                  <button 
+                  <button
                     onClick={() => setShowForm(true)}
                     className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg"
                   >

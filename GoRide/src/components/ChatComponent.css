@@ -1,0 +1,33 @@
+.bgch{
+    background-color: #121212;
+    height: 82vh ;
+}
+
+.bgch2{
+    background-color: #d79797;
+}
+
+.tch{
+    color: #9e7aff
+}
+.tch2{
+    color: #534a6a;
+}
+.tch3{
+    color: #766996;
+}
+
+.fc{
+    background-color: #262626;
+    color: #9da4b0;
+
+}
+
+.pb:hover{
+    border: 1px solid #9d7aff;
+    color: #121212;
+    background-color: #9d7aff;
+    box-shadow: 0 6px 20px #9d7aff5b;
+    
+
+}

@@ -30,12 +30,27 @@
 .tch5{
     color: #f0ecfc;
 }
+.tch6{
+    color: #262626;
+}
+.tch7{
+    color: #d3cfdc;
+}
 
-.pbh:hover{
-    border: 1px solid #9d7aff;
+.pbh2:hover{
+    /* border: 1px solid #9d7aff; */
     color: #121212;
     background-color: #9d7aff;
     box-shadow: 0 6px 20px #9d7aff5b;
     
 
+}
+
+.pc::placeholder {
+    color: #9e7aff;
+  }
+
+.bch{
+    border: solid 1px ;
+    border-color: #414141;
 }

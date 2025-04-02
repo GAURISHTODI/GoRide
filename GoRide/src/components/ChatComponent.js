@@ -55,7 +55,7 @@ const ChatComponent = ({ username, chatroom, role }) => {
     };
 
     return (
-        <div className="flex flex-col min-h-screen bg-gray-900">
+        <div className="flex flex-col min-h-screen bgch2">
             {/* Conditionally render navbar based on role */}
             {role === 'user' ? (
                 <UserNavbar />
@@ -64,14 +64,14 @@ const ChatComponent = ({ username, chatroom, role }) => {
             ) : null}
 
             {/* Main chat container - using flex-1 to fill remaining space */}
-            <div className="flex-1 flex flex-col p-4 md:p-6">
-                <div className="bg-gray-800 rounded-lg shadow-lg flex flex-col max-w-4xl mx-auto w-full flex-1">
+            <div className="flex-1 flex flex-col p-4 md:p-6 bgch">
+                <div className="bgch2 rounded-lg shadow-lg flex flex-col max-w-4xl mx-auto w-full flex-1">
                     <h3 className="text-2xl font-semibold text-purple-400 p-4 text-center border-b border-gray-700">
                         Ride Chat - {chatroom}
                     </h3>
                     
                     {/* Messages container with flex-1 to fill available space */}
-                    <div className="flex-1 overflow-y-auto p-4 bg-gray-800">
+                    <div className="flex-1 overflow-y-auto p-4 bgch2">
                         {messages.length > 0 ? (
                             messages.map((msg, index) => (
                                 <div key={index} className="mb-3 bg-gray-700 p-3 rounded-lg">
@@ -94,11 +94,11 @@ const ChatComponent = ({ username, chatroom, role }) => {
                                 onChange={(e) => setMessage(e.target.value)}
                                 onKeyPress={handleKeyPress}
                                 placeholder="Type your message..."
-                                className="flex-1 px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 text-white"
+                                className="flex-1 px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 fc"
                             />
                             <button
                                 onClick={handleSendMessage}
-                                className="px-4 py-3 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition duration-300 focus:outline-none"
+                                className="px-4 py-3 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition duration-300 focus:outline-none pb"
                             >
                                 Send
                             </button>
