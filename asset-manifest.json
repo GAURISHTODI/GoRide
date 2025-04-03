@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.ce7e9785.css",
-    "main.js": "/static/js/main.ec052023.js",
-    "index.html": "/index.html",
-    "main.ce7e9785.css.map": "/static/css/main.ce7e9785.css.map",
-    "main.ec052023.js.map": "/static/js/main.ec052023.js.map"
+    "main.css": "/GoRide/static/css/main.ce7e9785.css",
+    "main.js": "/GoRide/static/js/main.490c041c.js",
+    "index.html": "/GoRide/index.html",
+    "main.ce7e9785.css.map": "/GoRide/static/css/main.ce7e9785.css.map",
+    "main.490c041c.js.map": "/GoRide/static/js/main.490c041c.js.map"
   },
   "entrypoints": [
     "static/css/main.ce7e9785.css",
-    "static/js/main.ec052023.js"
+    "static/js/main.490c041c.js"
   ]
 }
