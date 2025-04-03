@@ -192,7 +192,7 @@ const YourRides = () => {
   return (
     <>
       <UserNavbar />
-      <div className="min-h-screen  bgch p-4">
+      <div className="min-h-screen h-auto bgch p-4">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl font-bold mb-4 text-center tch">Your Rides</h2>
 
