@@ -2,8 +2,19 @@ import React, { useEffect, useState, useRef } from "react";
 import { doc, collection, getDocs, addDoc, Timestamp } from "firebase/firestore";
 import { db } from "../firebase"; // Ensure you have your Firebase config file
 import UserNavbar from "./UserNavbar";
+import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import "./YourRides.css"
-
+const COLORS = [
+  "#00C49F", // Teal
+  "#FFBB28", // Gold
+  "#FF6B8B", // Coral pink
+  "#26D0FF", // Bright cyan
+  "#FF9E44", // Orange
+  "#5CFFA3", // Bright green
+  "#FF5757", // Bright red
+  "#FFE259", // Yellow
+  "#B388FF"  // Light purple
+];
 const YourRides = () => {
   const [trips, setTrips] = useState([]);
   const [error, setError] = useState(null);
@@ -142,7 +153,7 @@ const YourRides = () => {
     });
   };
   function compareSelectedKeys(obj1, obj2) {
-    const keys = ['start', 'dest', 'date', 'time','uid'];
+    const keys = ['start', 'dest', 'date', 'time', 'uid'];
     return keys.every(key => obj1[key] === obj2[key]);
   }
 
@@ -388,7 +399,35 @@ const YourRides = () => {
                       </div>
                     </div>
                   ))}
-                </div>
+                  {trips.length > 0 && (
+  <div className="col-span-1 sm:col-span-2 md:col-span-3 bgch2 shadow-lg bch hover:shadow-xl transition-all rounded-xl p-4 mt-6">
+    <h3 className="font-bold text-lg text-purple-400 mb-4">Your Rides Statistics</h3>
+    <div className="flex justify-center">
+      <PieChart width={1000} height={400}>
+        <Pie
+          data={trips.map(trip => ({
+            name: `From ${trip.start.split(" ")[0]} To ${trip.dest.split(" ")[0]}`,
+            value: parseInt(trip.curr_person || 0)
+          }))}
+          dataKey="value"
+          nameKey="name"
+          cx="50%"
+          cy="50%"
+          outerRadius={100}
+          fill="#8884d8"
+          label={({name, percent}) => `${name}: ${(percent * 100).toFixed(0)}%`}
+        >
+          {trips.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+        <Tooltip formatter={(value) => [`${value} passengers`, 'Current Capacity']} />
+        <Legend />
+      </PieChart>
+    </div>
+  </div>
+)}
+ </div>
               ) : (
                 <div className="text-center bgch2 p-8 rounded-lg bch">
                   <p className="text-gray-400 mb-4">You don't have any trips yet.</p>
