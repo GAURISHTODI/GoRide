@@ -400,34 +400,52 @@ const YourRides = () => {
                     </div>
                   ))}
                   {trips.length > 0 && (
-  <div className="col-span-1 sm:col-span-2 md:col-span-3 bgch2 shadow-lg bch hover:shadow-xl transition-all rounded-xl p-4 mt-6">
-    <h3 className="font-bold text-lg text-purple-400 mb-4">Your Rides Statistics</h3>
-    <div className="flex justify-center">
-      <PieChart width={1000} height={400}>
-        <Pie
-          data={trips.map(trip => ({
-            name: `From ${trip.start.split(" ")[0]} To ${trip.dest.split(" ")[0]}`,
-            value: parseInt(trip.curr_person || 0)
-          }))}
-          dataKey="value"
-          nameKey="name"
-          cx="50%"
-          cy="50%"
-          outerRadius={100}
-          fill="#8884d8"
-          label={({name, percent}) => `${name}: ${(percent * 100).toFixed(0)}%`}
-        >
-          {trips.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-        <Tooltip formatter={(value) => [`${value} passengers`, 'Current Capacity']} />
-        <Legend />
-      </PieChart>
-    </div>
-  </div>
-)}
- </div>
+                    <div className="col-span-1 sm:col-span-2 md:col-span-3 bgch2 shadow-lg bch hover:shadow-xl transition-all rounded-xl p-4 mt-6">
+                      <h3 className="font-bold text-lg text-purple-400 mb-4">Your Rides Statistics</h3>
+                      <div className="flex justify-center">
+                        <PieChart width={1000} height={400}>
+                          <Pie
+                            data={
+                              // Group trips by route (from-to) and count the number of trips
+                              Object.entries(
+                                trips.reduce((acc, trip) => {
+                                  const routeKey = `From ${trip.start.split(" ")[0]} To ${trip.dest.split(" ")[0]}`;
+                                  if (!acc[routeKey]) {
+                                    acc[routeKey] = 0;
+                                  }
+                                  acc[routeKey] += 1; // Count trips, not passengers
+                                  return acc;
+                                }, {})
+                              ).map(([name, value]) => ({ name, value }))
+                            }
+                            dataKey="value"
+                            nameKey="name"
+                            cx="50%"
+                            cy="50%"
+                            outerRadius={100}
+                            fill="#8884d8"
+                            label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                          >
+                            {Object.entries(
+                              trips.reduce((acc, trip) => {
+                                const routeKey = `From ${trip.start.split(" ")[0]} To ${trip.dest.split(" ")[0]}`;
+                                if (!acc[routeKey]) {
+                                  acc[routeKey] = 0;
+                                }
+                                acc[routeKey] += 1;
+                                return acc;
+                              }, {})
+                            ).map((_, index) => (
+                              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                            ))}
+                          </Pie>
+                          <Tooltip formatter={(value) => [`${value} trips`, 'Number of Trips']} />
+                          <Legend />
+                        </PieChart>
+                      </div>
+                    </div>
+                  )}
+                </div>
               ) : (
                 <div className="text-center bgch2 p-8 rounded-lg bch">
                   <p className="text-gray-400 mb-4">You don't have any trips yet.</p>
