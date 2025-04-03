@@ -4,9 +4,8 @@ import axios from 'axios';
 import UserNavbar from './UserNavbar';
 import PaymentComponent from '../Payments/PaymentComponent';
 import MapComponent from '../User/MapComponent';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, query, where, updateDoc ,Timestamp, addDoc,doc} from 'firebase/firestore';
 import { db } from '../firebase';
-import { Timestamp, addDoc } from "firebase/firestore";
 import "./SearchSection.css"
 // Query Firestore
 const SearchSection = ({ setSearchQuery, setDistance }) => {
@@ -167,14 +166,16 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
                 console.log(data.name);
                 filteredTrips.push(doc.data());
             });
-            console.log(filteredTrips.length==0);
+            console.log(filteredTrips.length == 0);
             setAvailableTrips(filteredTrips);
         } catch (error) {
             console.error("Error fetching trips from Firebase:", error);
         }
     };
-
-
+    function compareSelectedKeys(obj1, obj2) {
+        const keys = ['start', 'dest', 'date', 'time', 'uid'];
+        return keys.every(key => obj1[key] === obj2[key]);
+    }
 
     const handleJoin = async (trip) => {
         console.log("Hello!");
@@ -183,11 +184,33 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
             alert("Please login/signup before you proceed!");
             return;
         }
+        if (trip.curr_person >= trip.max_person) {
+            alert("The trip is already full");
+            return;
+        }
         setIsJoining(true);
-        trip.pid= id;
+        trip.pid = id;
         try {
-            await addDoc(collection(db, "passangers"), trip );
-            alert(`You can now view your trip under MyRides section`);
+            const requestsRef = collection(db, "requests");
+            const querySnapshot1 = await getDocs(requestsRef);
+            querySnapshot1.forEach((docSnap) => {
+                try {
+                    const data = docSnap.data();
+    
+                    if (compareSelectedKeys(data, trip)) {
+                        const updatedCount = (parseInt(data.curr_person) || 0) + 1;
+                        const docRef = doc(db, "requests", docSnap.id);
+                        updateDoc(docRef, { curr_person: updatedCount.toString() })
+                            .then(() => console.log(`Updated curr_person for ${docSnap.id}: ${updatedCount}`))
+                            .catch((error) => console.error("Error updating document:", error));
+                    }
+                } catch (innerError) {
+                  console.error("Error in forEach loop:", innerError.message);
+                }
+              });
+              alert(`The trip has been added`);
+              console.log("Adding to passengers collection", trip);
+              await addDoc(collection(db, "passangers"), trip); 
         } catch (error) {
             console.error("Error joining trip:", error);
             alert("Failed to join trip. Please try again.");
@@ -241,7 +264,7 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
     return (
         <>
             <UserNavbar />
-            <section id="Search" className="py-10 bgch h-auto"> 
+            <section id="Search" className="py-10 bgch h-auto">
                 <div className="container mx-auto px-4">
                     <div className="bgch2 shadow-md rounded-lg p-6">
                         <h2 className="text-2xl font-bold mb-4 tch">Search for a ride</h2>
@@ -390,7 +413,7 @@ const SearchSection = ({ setSearchQuery, setDistance }) => {
 
                                                 <button
                                                     className="mt-4 w-full bg-green-500 text-white font-medium py-2 px-4 rounded-md hover:bg-green-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
-                                        
+
                                                     onClick={() => handleJoin(trip)}
                                                 >
                                                     {isJoining ? 'Joining...' : 'Join'}

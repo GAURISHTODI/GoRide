@@ -111,9 +111,15 @@ const YourRides = () => {
         const data = doc.data();
         console.log(data);
         if (data.pid === uid) {
-          userTrips.push({
-            id: ++i,
-            ...data
+          const { pid, ...updatedData } = data;
+          querySnapshot1.forEach((doc1) => { // trips create by me
+            const data1 = doc1.data();
+            if (compareSelectedKeys(updatedData, data1)) {
+              userTrips.push({
+                id: ++i,
+                ...data1
+              });
+            }
           });
         }
       });
@@ -135,6 +141,11 @@ const YourRides = () => {
       [name]: value
     });
   };
+  function compareSelectedKeys(obj1, obj2) {
+    const keys = ['start', 'dest', 'date', 'time','uid'];
+    return keys.every(key => obj1[key] === obj2[key]);
+  }
+
   // Handle form submission to create a new trip
   const handleSubmit = async (e) => {
     e.preventDefault();
