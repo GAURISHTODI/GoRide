@@ -2,7 +2,7 @@
   "name": "GoRide",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://gaurishtodi.github.io",
+  "homepage": "https://gaurishtodi.github.io/GoRide/",
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.7.1",
     "@fortawesome/react-fontawesome": "^0.2.2",
